@@ -1,105 +1,368 @@
-<section class="hero">
-  <h1>GOD<br>WAY.</h1>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <p>
-    Создано для тех, кто выбирает свой путь.
-  </p>
+  <title>GODWAY</title>
 
-  <a href="#catalog" class="button">
-    Смотреть коллекцию
-  </a>
-</section>
+  <style>
 
-<section class="section" id="catalog">
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <div class="section-title">
-    Коллекция
-  </div>
+    body {
+      background: #0a0a0a;
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-  <div class="products">
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
-    <div class="product">
-      <div class="product-image">
-        PHOTO
-      </div>
+      padding: 22px;
 
-      <div class="product-info">
-        <div class="product-name">
-          Longsleeve Black
-        </div>
+      border-bottom: 1px solid #242424;
 
-        <div class="product-price">
-          2 000 ₽
-        </div>
+      position: sticky;
+      top: 0;
 
-        <button>
-          В корзину
-        </button>
-      </div>
+      background: rgba(10, 10, 10, 0.95);
+
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .cart {
+      border: 1px solid #333;
+
+      padding: 9px 14px;
+
+      border-radius: 20px;
+
+      font-size: 14px;
+    }
+
+    .hero {
+      padding: 70px 22px 55px;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 13vw, 110px);
+
+      line-height: 0.85;
+
+      letter-spacing: -5px;
+
+      margin-bottom: 25px;
+    }
+
+    .hero p {
+      color: #aaa;
+
+      max-width: 450px;
+
+      line-height: 1.5;
+
+      margin-bottom: 30px;
+    }
+
+    .button {
+      display: inline-block;
+
+      background: #ffffff;
+
+      color: #000000;
+
+      padding: 15px 24px;
+
+      border-radius: 30px;
+
+      text-decoration: none;
+
+      font-weight: 700;
+    }
+
+    .section {
+      padding: 30px 22px 100px;
+    }
+
+    .section-title {
+      font-size: 13px;
+
+      color: #777;
+
+      text-transform: uppercase;
+
+      letter-spacing: 2px;
+
+      margin-bottom: 20px;
+    }
+
+    .products {
+      display: grid;
+
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 12px;
+    }
+
+    .product {
+      background: #151515;
+
+      border-radius: 12px;
+
+      overflow: hidden;
+    }
+
+    .product-image {
+      aspect-ratio: 1 / 1.15;
+
+      background: #222;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      color: #555;
+
+      font-size: 12px;
+    }
+
+    .product-info {
+      padding: 14px;
+    }
+
+    .product-name {
+      font-size: 14px;
+
+      margin-bottom: 7px;
+    }
+
+    .product-price {
+      color: #aaa;
+
+      font-size: 13px;
+    }
+
+    .product button {
+      width: 100%;
+
+      margin-top: 12px;
+
+      padding: 11px;
+
+      border: 1px solid #333;
+
+      background: transparent;
+
+      color: white;
+
+      border-radius: 7px;
+
+      cursor: pointer;
+    }
+
+    footer {
+      padding: 30px 22px;
+
+      border-top: 1px solid #242424;
+
+      color: #666;
+
+      font-size: 12px;
+    }
+
+    min-width: 700px {
+
+      .products {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .hero,
+      .section {
+        max-width: 1200px;
+
+        margin: auto;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <div class="logo">
+      GODWAY
     </div>
 
-
-    <div class="product">
-      <div class="product-image">
-        PHOTO
-      </div>
-
-      <div class="product-info">
-        <div class="product-name">
-          Longsleeve White
-        </div>
-
-        <div class="product-price">
-          2 000 ₽
-        </div>
-
-        <button>
-          В корзину
-        </button>
-      </div>
+    <div class="cart">
+      Корзина · 0
     </div>
 
+  </header>
 
-    <div class="product">
-      <div class="product-image">
-        PHOTO
+  <main>
+
+    <section class="hero">
+
+      <h1>
+        GOD
+
+        WAY.
+      </h1>
+
+      <p>
+        Создано для тех, кто выбирает свой путь.
+      </p>
+
+      <a
+        href="#catalog"
+        class="button"
+      >
+        Смотреть коллекцию
+      </a>
+
+    </section>
+
+    <section
+      class="section"
+      id="catalog"
+    >
+
+      <div class="section-title">
+        Коллекция
       </div>
 
-      <div class="product-info">
-        <div class="product-name">
-          Cardholder Black
+      <div class="products">
+
+        <div class="product">
+
+          <div class="product-image">
+            PHOTO
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              Longsleeve Black
+            </div>
+
+            <div class="product-price">
+              2 000 ₽
+            </div>
+
+            <button>
+              В корзину
+            </button>
+
+          </div>
+
         </div>
 
-        <div class="product-price">
-          1 000 ₽
+        <div class="product">
+
+          <div class="product-image">
+            PHOTO
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              Longsleeve White
+            </div>
+
+            <div
+
+
+s="product-price">
+              2 000 ₽
+            </div>
+
+            <button>
+              В корзину
+            </button>
+
+          </div>
+
         </div>
 
-        <button>
-          В корзину
-        </button>
+        <div class="product">
+
+          <div class="product-image">
+            PHOTO
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              Cardholder Black
+            </div>
+
+            <div class="product-price">
+              1 000 ₽
+            </div>
+
+            <button>
+              В корзину
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="product">
+
+          <div class="product-image">
+            PHOTO
+          </div>
+
+          <div class="product-info">
+
+            <div class="product-name">
+              Cardholder Silver
+            </div>
+
+            <div class="product-price">
+              1 000 ₽
+            </div>
+
+            <button>
+              В корзину
+            </button>
+
+          </div>
+
+        </div>
+
       </div>
-    </div>
 
+    </section>
 
-    <div class="product">
-      <div class="product-image">
-        PHOTO
-      </div>
+  </main>
 
-      <div class="product-info">
-        <div class="product-name">
-          Cardholder Silver
-        </div>
+  <footer>
 
-        <div class="product-price">
-          1 000 ₽
-        </div>
+    GODWAY © 2026
 
-        <button>
-          В корзину
-        </button>
-      </div>
-    </div>
+  </footer>
 
-  </div>
-</section>
+</body>
+
+</html> clas
