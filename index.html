@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>GODWAY — Clothing Store</title>
+    <title>GODWAY — Clothing</title>
 
     <style>
         * {
@@ -13,14 +12,10 @@
             padding: 0;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: #ffffff;
-            color: #111111;
+            background: #fff;
+            color: #111;
             overflow-x: hidden;
         }
 
@@ -29,26 +24,17 @@
             cursor: pointer;
         }
 
-        /* =========================
-           HEADER
-        ========================= */
-
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            width: 100%;
-            background: #ffffff;
-            border-bottom: 1px solid #e5e5e5;
-        }
-
-        .header-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px 30px;
+            height: 72px;
+            padding: 0 24px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            background: #fff;
+            border-bottom: 1px solid #e5e5e5;
         }
 
         .logo {
@@ -59,34 +45,18 @@
 
         .cart-button {
             border: none;
-            background: #111111;
-            color: #ffffff;
-            padding: 12px 20px;
+            background: #111;
+            color: #fff;
             border-radius: 30px;
-            font-size: 13px;
+            padding: 12px 18px;
+            font-size: 14px;
             font-weight: 700;
-            transition: 0.2s ease;
         }
-
-        .cart-button:hover {
-            transform: translateY(-2px);
-        }
-
-        /* =========================
-           HERO
-        ========================= */
 
         .hero {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 30px;
-        }
-
-        .hero-box {
-            min-height: 550px;
-            background: #111111;
-            border-radius: 24px;
-            color: #ffffff;
+            min-height: 500px;
+            background: #111;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -94,21 +64,17 @@
         }
 
         .hero-letter {
-            font-size: clamp(250px, 45vw, 700px);
-            line-height: 0.7;
+            font-size: min(55vw, 650px);
+            line-height: .75;
             font-weight: 900;
             letter-spacing: -50px;
             transform: translateX(-20px);
         }
 
-        /* =========================
-           CATALOG
-        ========================= */
-
         .catalog {
-            max-width: 1400px;
+            padding: 70px 24px 100px;
+            max-width: 1500px;
             margin: 0 auto;
-            padding: 60px 30px 100px;
         }
 
         .catalog-top {
@@ -132,39 +98,30 @@
         }
 
         .category {
-            border: 1px solid #dddddd;
-            background: #ffffff;
-            color: #111111;
-            padding: 10px 17px;
+            border: 1px solid #111;
+            background: #fff;
+            color: #111;
             border-radius: 30px;
+            padding: 10px 17px;
             font-size: 12px;
             font-weight: 700;
-            transition: 0.2s ease;
+            transition: .2s;
         }
 
-        .category:hover {
-            border-color: #111111;
-        }
-
+        .category:hover,
         .category.active {
-            background: #111111;
-            color: #ffffff;
-            border-color: #111111;
+            background: #111;
+            color: #fff;
         }
-
-        /* =========================
-           PRODUCTS
-        ========================= */
 
         .products {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
+            gap: 28px 16px;
         }
 
         .product {
             min-width: 0;
-            transition: 0.25s ease;
         }
 
         .product.hidden {
@@ -172,153 +129,445 @@
         }
 
         .product-image {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            background: #f2f2f2;
-            border-radius: 16px;
             position: relative;
-            display: flex;
-
-
-align-items: center;
-            justify-content: center;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            background: #f1f1f1;
             overflow: hidden;
             cursor: pointer;
-            transition: 0.25s ease;
-        }
-
-        .product-image:hover {
-            transform: translateY(-4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .product-image::after {
             content: "GODWAY";
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 900;
-            color: #111111;
-            opacity: 0.12;
             letter-spacing: -1px;
+            color: #111;
         }
 
         .sold {
             position: absolute;
-            top: 15px;
-            left: 15px;
+            top: 14px;
+            left: 14px;
             z-index: 2;
-            background: #111111;
-            color: #ffffff;
             padding: 7px 10px;
-            border-radius: 20px;
+            background: #111;
+            color: #fff;
             font-size: 10px;
             font-weight: 700;
+            letter-spacing: .5px;
         }
 
         .product-name {
-            margin-top: 15px;
-            font-size: 14px;
-            font-weight: 800;
-            letter-spacing: -0.2px;
+            margin-top: 13px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: .2px;
         }
 
         .product-info {
-            margin-top: 7px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
             gap: 10px;
-            color: #777777;
-            font-size: 12px;
+            margin-top: 6px;
+            color: #666
+
+
+1px;
         }
 
-        .product-info span:last-child {
-            color: #111111;
+        .cart-item-total {
+            font-size: 13px;
             font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .cart-footer {
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .cart-total {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .checkout-button {
+            width: 100%;
+            border: none;
+            background: #111;
+            color: #fff;
+            padding: 16px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        max-width: 900px {
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px 12px;
+            }
+
+            .catalog-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .catalog-title {
+                font-size: 34px;
+            }
+
+            .hero {
+                min-height: 380px;
+            }
+
+            .hero-letter {
+                font-size: 75vw;
+                letter-spacing: -25px;
+            }
+        }
+
+        max-width: 600px {
+            header {
+                height: 64px;
+                padding: 0 16px;
+            }
+
+            .logo {
+                font-size: 21px;
+            }
+
+            .cart-button {
+                padding: 10px 15px;
+            }
+
+            .catalog {
+                padding: 50px 16px 70px;
+            }
+
+            .catalog-title {
+                font-size: 30px;
+            }
+
+            .categories {
+                width: 100%;
+            }
+
+            .category {
+                padding: 9px 13px;
+            }
+
+            .product-name {
+                font-size: 12px;
+            }
+
+            .product-info {
+                font-size: 11px;
+            }
+
+            .product-button {
+                padding: 11px 5px;
+                font-size: 10px;
+            }
+
+            .banner {
+                margin: 0 16px 70px;
+                min-height: 250px;
+            }
+
+            .banner-text {
+                letter-spacing: -3px;
+            }
+
+            footer {
+                padding: 28px 16px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">GODWAY</div>
+    <button class="cart-button" id="cartButton" type="button">
+        КОРЗИНА <span id="cartCount">0</span>
+    </button>
+</header>
+
+<section class="hero">
+    <div class="hero-letter">G</div>
+</section>
+
+<section class="catalog">
+
+    <div class="catalog-top">
+        <h1 class="catalog-title">КАТАЛОГ</h1>
+
+        <div class="categories">
+            <button class="category active" type="button" data-category="all">
+                ВСЁ
+            </button>
+
+            <button class="category" type="button" data-category="clothing">
+                ОДЕЖДА
+            </button>
+
+            <button class="category" type="button" data-category="accessories">
+                АКСЕССУАРЫ
+            </button>
+        </div>
+    </div>
+
+    <div class="products" id="products">
+
+        <article class="product" data-category="clothing">
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="LONGSLEEVE / BLACK"
+                data-price="2000"
+            >
+                <div class="sold">NEW</div>
+            </div>
+
+            <div class="product-name">LONGSLEEVE / BLACK</div>
+
+            <div class="product-info">
+                <span>M / L</span>
+                <span>2 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="LONGSLEEVE / BLACK"
+                data-price="2000"
+            >
+                В КОРЗИНУ
+            </button>
+
+
+</article>
+
+        <article class="product" data-category="clothing">
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="LONGSLEEVE / WHITE"
+                data-price="2000"
+            >
+                <div class="sold">NEW</div>
+            </div>
+
+            <div class="product-name">LONGSLEEVE / WHITE</div>
+
+            <div class="product-info">
+                <span>M / L</span>
+                <span>2 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="LONGSLEEVE / WHITE"
+                data-price="2000"
+            >
+                В КОРЗИНУ
+            </button>
+        </article>
+
+        <article class="product" data-category="accessories">
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 01"
+                data-price="1000"
+            ></div>
+
+            <div class="product-name">CARDHOLDER / BLACK 01</div>
+
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 01"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+        </article>
+
+        <article class="product" data-category="accessories">
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 02"
+                data-price="1000"
+            ></div>
+
+            <div class="product-name">CARDHOLDER / BLACK 02</div>
+
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 02"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+        </article>
+
+        <article class="product" data-category="accessories">
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 03"
+                data-price="1000"
+            ></div>
+
+            <div class="product-name">CARDHOLDER / BLACK 03</div>
+
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 03"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+        </article>
+
+        <article class="product" data-category="accessories">
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 01"
+                data-price="1000"
+            ></div>
+
+            <div class="product-name">CARDHOLDER / SILVER 01</div>
+
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 01"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+        </article>
+
+        <article class="product" data-category="accessories">
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 02"
+                data-price="1000"
+            ></div>
+
+            <div class="product-name">CARDHOLDER / SILVER 02<
+
+
+font-size: 12px;
         }
 
         .product-button {
             width: 100%;
-            margin-top: 15px;
+            margin-top: 13px;
             padding: 12px;
-            border: 1px solid #111111;
-            background: #ffffff;
-            color: #111111;
-            border-radius: 8px;
+            border: 1px solid #111;
+            background: #fff;
+            color: #111;
             font-size: 11px;
-            font-weight: 800;
-            transition: 0.2s ease;
+            font-weight: 700;
+            transition: .2s;
         }
 
         .product-button:hover {
-            background: #111111;
-            color: #ffffff;
+            background: #111;
+            color: #fff;
         }
-
-        /* =========================
-           BANNER
-        ========================= */
 
         .banner {
-            max-width: 1400px;
-            margin: 0 auto 100px;
-            padding: 0 30px;
-        }
-
-        .banner-box {
-            background: #111111;
-            color: #ffffff;
-            border-radius: 24px;
-            min-height: 300px;
+            margin: 0 24px 100px;
+            min-height: 330px;
+            background: #111;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 50px;
             text-align: center;
+            padding: 40px;
         }
 
-        .banner-title {
-            font-size: clamp(45px, 8vw, 110px);
+        .banner-text {
+            font-size: clamp(45px, 9vw, 130px);
+            line-height: .85;
             font-weight: 900;
-            letter-spacing: -5px;
+            letter-spacing: -6px;
         }
-
-        /* =========================
-           FOOTER
-        ========================= */
 
         footer {
             border-top: 1px solid #e5e5e5;
-            padding: 40px 30px;
-        }
-
-        .footer-inner {
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 35px 24px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
             gap: 20px;
+            font-size: 11px;
+            color: #777;
         }
 
         .footer-logo {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 900;
+            color: #111;
         }
-
-        .footer-text {
-            color: #777777;
-            font-size: 12px;
-        }
-
-        /* =========================
-           CART
-        ========================= */
 
         .cart-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 1000;
+            z-index: 999;
+            background: rgba(0, 0, 0, .45);
             opacity: 0;
             visibility: hidden;
-            transition: 0.25s ease;
+            transition: .25s;
         }
 
         .cart-overlay.active {
@@ -330,12 +579,12 @@ align-items: center;
             position: absolute;
             top: 0;
             right: 0;
-            width: min(450px, 100%);
+            width: min(460px, 100%);
             height: 100%;
-            background: #ffffff;
+            background: #fff;
             padding: 25px;
             transform: translateX(100%);
-            transition: 0.3s ease;
+            transition: .25s;
             display: flex;
             flex-direction: column;
         }
@@ -349,216 +598,25 @@ align-items: center;
             align-items: center;
             justify-content: space-between;
             padding-bottom: 20px;
-            border-bottom: 1px solid #e5e5e5;
+            border-bottom: 1px solid #ddd;
         }
 
-
-}
-
-            .product-name {
-                font-size: 12px;
-                margin-top: 11px;
-            }
-
-            .product-info {
-                font-size: 10px;
-            }
-
-            .product-button {
-                padding: 10px 5px;
-                font-size: 9px;
-                margin-top: 11px;
-            }
-
-            .banner {
-                padding: 0 18px;
-                margin-bottom: 70px;
-            }
-
-            .banner-box {
-                min-height: 220px;
-                border-radius: 18px;
-                padding: 30px 15px;
-            }
-
-            .banner-title {
-                font-size: 48px;
-                letter-spacing: -3px;
-            }
-
-            footer {
-                padding: 30px 18px;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- =========================
-         HEADER
-    ========================= -->
-
-    <header>
-        <div class="header-inner">
-
-            <div class="logo">
-                GODWAY
-            </div>
-
-            <button class="cart-button" onclick="openCart()">
-                КОРЗИНА <span id="cartCount">0</span>
-            </button>
-
-        </div>
-    </header>
-
-    <!-- =========================
-         HERO
-    ========================= -->
-
-    <section class="hero">
-
-        <div class="hero-box">
-
-            <div class="hero-letter">
-                G
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- =========================
-         CATALOG
-    ========================= -->
-
-    <main class="catalog">
-
-        <div class="catalog-top">
-
-            <h1 class="catalog-title">
-                КАТАЛОГ
-            </h1>
-
-            <div class="categories">
-
-                <button
-                    class="category active"
-                    onclick="filterProducts('all', this)"
-                >
-                    ВСЁ
-                </button>
-
-                <button
-                    class="category"
-                    onclick="filterProducts('clothing', this)"
-                >
-                    ОДЕЖДА
-                </button>
-
-                <button
-                    class="category"
-                    onclick="filterProducts('accessories', this)"
-                >
-                    АКСЕССУАРЫ
-                </button>
-
-            </div>
-
-        </div>
-
-        <!-- =========================
-             PRODUCTS
-        ========================= -->
-
-        <div class="products">
-
-            <!-- LONGSLEEVE BLACK -->
-
-            <div
-                class="product"
-                data-category="clothing"
-            >
-
-                <div
-                    class="product-image"
-                    onclick="addToCart('LONGSLEEVE / BLACK', 2000)"
-                >
-
-                    <div class="sold">
-                        NEW
-                    </div>
-
-                </div>
-
-                <div class="product-name">
-                    LONGSLEEVE / BLACK
-                </div>
-
-                <div class="product-info">
-                    <span>M / L</span>
-                    <span>2 000 ₽</span>
-                </div>
-
-                <button
-                    class="product-button"
-                    onclick="addToCart('LONGSLEEVE / BLACK', 2000)"
-                >
-                    В КОРЗИНУ
-                </button>
-
-            </div>
-
-            <!-- LONGSLEEVE WHITE -->
-
-            <div
-                class="product"
-                data-category="clothing"
-            >
-
-                <div
-                    class="product-image"
-                    onclick="addToCart('LONGSLEEVE / WHITE', 2000)"
-                >
-
-                    <div class="sold">
-                        NEW
-                    </div>
-
-                </div>
-
-                <div class="product-name">
-                    LONGSLEEVE / WHITE
-                </div>
-
-                <div class="product-info">
-                    <span>M / L</span>
-                    <span>2 000
-
-
-.cart-title {
-            font-size: 22px;
+        .cart-title {
+            font-size: 24px;
             font-weight: 900;
         }
 
         .close-cart {
             width: 30px;
             height: 30px;
-            border: 1px solid #111111;
+            border: 1px solid #111;
             background: transparent;
-            color: #111111;
             border-radius: 50%;
             font-size: 15px;
             line-height: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
         }
 
         .cart-items {
@@ -568,941 +626,460 @@ align-items: center;
         }
 
         .empty-cart {
+            padding: 50px 0;
             text-align: center;
-            color: #777777;
-            padding: 50px 10px;
-            font-size: 14px;
+            color: #777;
+            font-size: 13px;
         }
 
         .cart-item {
-            padding: 15px 0;
-            border-bottom: 1px solid #eeeeee;
-        }
-
-        .cart-item-top {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr auto;
             gap: 15px;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
         }
 
         .cart-item-name {
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 700;
         }
 
         .cart-item-price {
-            font-size: 13px;
-            font-weight: 800;
-            white-space: nowrap;
+            margin-top: 5px;
+            font-size: 12px;
+            color: #777;
         }
 
-        .cart-item-bottom {
-            margin-top: 12px;
+        .cart-item-controls {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .quantity-button {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #111;
+            background: #fff;
+            font-size: 16px;
         }
 
         .quantity {
-            display: flex;
-            align-items: center;
-            border: 1px solid #dddddd;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .quantity button {
-            width: 30px;
-            height: 30px;
-            border: none;
-            background: #ffffff;
-            font-size: 15px;
-        }
-
-        .quantity span {
-            width: 30px;
+            min-width: 25px;
             text-align: center;
             font-size: 12px;
             font-weight: 700;
         }
 
-        .remove-item {
+        .remove-button {
+            margin-left: 8px;
             border: none;
             background: transparent;
-            color: #888888;
-            font-size: 11px;
+            color: #777;
+            font-size: 1
+
+
+nction (button) {
+                button.classList.remove("active");
+            });
+
+            activeButton.classList.add("active");
+
+            products.forEach(function (product) {
+                if (
+                    category === "all" ||
+                    product.dataset.category === category
+                ) {
+                    product.classList.remove("hidden");
+                } else {
+                    product.classList.add("hidden");
+                }
+            });
         }
 
-        .cart-footer {
-            border-top: 1px solid #e5e5e5;
-            padding-top: 20px;
-        }
+        document.addEventListener("DOMContentLoaded", function () {
 
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 17px;
-            font-weight: 900;
-            margin-bottom: 15px;
-        }
+            updateCart();
 
-        .checkout-button {
-            width: 100%;
-            border: none;
-            background: #111111;
-            color: #ffffff;
-            padding: 16px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 800;
-        }
+            document.addEventListener("click", function (event) {
 
-        .checkout-button:hover {
-            opacity: 0.85;
-        }
+                const addButton = event.target.closest("[data-add-to-cart]");
 
-        /* =========================
-           MOBILE
-        ========================= */
+                if (addButton) {
+                    const name = addButton.dataset.name;
+                    const price = Number(addButton.dataset.price);
 
-        max-width: 1000px {
+                    if (name && Number.isFinite(price)) {
+                        addToCart(name, price);
+                    }
 
-            .products {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 20px;
-            }
+                    return;
+                }
 
-            .hero-box {
-                min-height: 420px;
-            }
+                const categoryButton = event.target.closest(".category");
 
-            .catalog-top {
-                align-items: flex-start;
-                flex-direction: column;
-            }
-        }
+                if (categoryButton) {
+                    filterProducts(
+                        categoryButton.dataset.category,
+                        categoryButton
+                    );
 
-        max-width: 600px {
+                    return;
+                }
 
-            .header-inner {
-                padding: 17px 18px;
-            }
+                const cartAction = event.target.closest("[data-cart-action]");
 
-            .logo {
-                font-size: 21px;
-            }
+                if (cartAction) {
+                    const index = Number(cartAction.dataset.index);
+                    const action = cartAction.dataset.cartAction;
 
-            .cart-button {
-                padding: 10px 15px;
-                font-size: 11px;
-            }
+                    if (!Number.isInteger(index) || !cart[index]) {
+                        return;
+                    }
 
-            .hero {
-                padding: 15px;
-            }
+                    if (action === "increase") {
+                        cart[index].quantity += 1;
+                    }
 
-            .hero-box {
-                min-height: 350px;
-                border-radius: 18px;
-            }
+                    if (action === "decrease") {
+                        cart[index].quantity -= 1;
 
-            .hero-letter {
-                font-size: 300px;
-            }
+                        if (cart[index].quantity <= 0) {
+                            cart.splice(index, 1);
+                        }
+                    }
 
-            .catalog {
-                padding: 45px 18px 70px;
-            }
+                    if (action === "remove") {
+                        cart.splice(index, 1);
+                    }
 
-            .catalog-title {
-                font-size: 34px;
-            }
+                    saveCart();
+                    updateCart();
 
-            .products {
-                gap: 18px 12px;
-            }
+                    return;
+                }
 
-            .product-image {
-                border-radius: 12px;
-            }
+                if (event.target.closest("#cartButton")) {
+                    openCart();
+                    return;
+                }
 
-            .product-image::after {
-                font-size: 20px;
+                if (event.target.closest("#closeCart")) {
+                    closeCart();
+                    return;
+                }
+
+                if (event.target.id === "cartOverlay") {
+                    closeCart();
+                    return;
+                }
+
+                if (event.target.closest("#checkoutButton")) {
+                    if (cart.length === 0) {
+                        alert("Корзина пуста.");
+                        return;
+                    }
+
+                    alert("Оформление заказа подключим следующим этапом.");
+                }
+            });
+
+            document.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") {
+                    closeCart();
+                }
+            });
+
+        });
+
+    })();
+</script>
+
+</body>
+</html>;
 
 
-₽</span>
-                </div>
+/div>
 
-                <button
-                    class="product-button"
-                    onclick="addToCart('LONGSLEEVE / WHITE', 2000)"
-                >
-                    В КОРЗИНУ
-                </button>
-
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
             </div>
 
-            <!-- CARDHOLDER BLACK 01 -->
-
-            <div
-                class="product"
-                data-category="accessories"
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 02"
+                data-price="1000"
             >
+                В КОРЗИНУ
+            </button>
+        </article>
 
-                <div
-                    class="product-image"
-                    onclick="addToCart('CARDHOLDER / BLACK 01', 1000)"
-                >
-
-                    <div class="sold">
-                        NEW
-                    </div>
-
-                </div>
-
-                <div class="product-name">
-                    CARDHOLDER / BLACK 01
-                </div>
-
-                <div class="product-info">
-                    <span>ONE SIZE</span>
-                    <span>1 000 ₽</span>
-                </div>
-
-                <button
-                    class="product-button"
-                    onclick="addToCart('CARDHOLDER / BLACK 01', 1000)"
-                >
-                    В КОРЗИНУ
-                </button>
-
-            </div>
-
-            <!-- CARDHOLDER BLACK 02 -->
-
+        <article class="product" data-category="accessories">
             <div
-                class="product"
-                data-category="accessories"
-            >
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 03"
+                data-price="1000"
+            ></div>
 
-                <div
-                    class="product-image"
-                    onclick="addToCart('CARDHOLDER / BLACK 02', 1000)"
-                >
+            <div class="product-name">CARDHOLDER / SILVER 03</div>
 
-                    <div class="sold">
-                        NEW
-                    </div>
-
-                </div>
-
-                <div class="product-name">
-                    CARDHOLDER / BLACK 02
-                </div>
-
-                <div class="product-info">
-                    <span>ONE SIZE</span>
-                    <span>1 000 ₽</span>
-                </div>
-
-                <button
-                    class="product-button"
-                    onclick="addToCart('CARDHOLDER / BLACK 02', 1000)"
-                >
-                    В КОРЗИНУ
-                </button>
-
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
             </div>
 
-            <!-- CARDHOLDER BLACK 03 -->
-
-            <div
-                class="product"
-                data-category="accessories"
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 03"
+                data-price="1000"
             >
+                В КОРЗИНУ
+            </button>
+        </article>
 
-                <div
-                    class="product-image"
-                    onclick="addToCart('CARDHOLDER / BLACK 03', 1000)"
-                >
+    </div>
+</section>
 
-                    <div class="sold">
-                        NEW
-                    </div>
+<section class="banner">
+    <div class="banner-text">WALK YOUR WAY.</div>
+</section>
 
-                </div>
+<footer>
+    <div class="footer-logo">GODWAY</div>
+    <div>© 2026 GODWAY. ALL RIGHTS RESERVED.</div>
+</footer>
 
-                <div class="product-name">
-                    CARDHOLDER / BLACK 03
-                </div>
+<div class="cart-overlay" id="cartOverlay">
 
-                <div class="product-info">
-                    <span>ONE SIZE</span>
-                    <span>1 000 ₽</span>
-                </div>
+    <div class="cart-panel">
 
-                <button
-                    class="product-button"
-                    onclick="addToCart('CARDHOLDER / BLACK 03', 1000)"
-                >
-                    В КОРЗИНУ
-                </button>
+        <div class="cart-header">
+            <div class="cart-title">КОРЗИНА</div>
 
-            </div>
-
-            <!-- CARDHOLDER SILVER 01 -->
-
-            <div
-                class="product"
-                data-category="accessories"
+            <button
+                class="close-cart"
+                id="closeCart"
+                type="button"
+                aria-label="Закрыть корзину"
             >
-
-                <div
-                    class="product-image"
-                    onclick="addToCart('CARDHOLDER / SILVER 01', 1000)"
-                >
-
-                    <div class="sold">
-                        NEW
-                    </div>
-
-                </div>
-
-                <div class="product-name">
-                    CARDHOLDER / SILVER 01
-                </div>
-
-                <div class="product-info">
-                    <span>ONE SIZE</span>
-                    <span>1 000 ₽</span>
-                </div>
-
-                <button
-                    class="product-button"
-                    onclick="addToCart('CARDHOLDER / SILVER 01', 1000)"
-                >
-                    В КОРЗИНУ
-                </button>
-
-            </div>
-
-            <!-- CARDHOLDER SILVER 02 -->
-
-            <div
-                class="product"
-                data-category="accessories"
-            >
-
-                <div
-
-
-class="product-image"
-                    onclick="addToCart('CARDHOLDER / SILVER 02', 1000)"
-                >
-
-                    <div class="sold">
-                        NEW
-                    </div>
-
-                </div>
-
-                <div class="product-name">
-                    CARDHOLDER / SILVER 02
-                </div>
-
-                <div class="product-info">
-                    <span>ONE SIZE</span>
-                    <span>1 000 ₽</span>
-                </div>
-
-                <button
-                    class="product-button"
-                    onclick="addToCart('CARDHOLDER / SILVER 02', 1000)"
-                >
-                    В КОРЗИНУ
-                </button>
-
-            </div>
-
-            <!-- CARDHOLDER SILVER 03 -->
-
-            <div
-                class="product"
-                data-category="accessories"
-            >
-
-                <div
-                    class="product-image"
-                    onclick="addToCart('CARDHOLDER / SILVER 03', 1000)"
-                >
-
-                    <div class="sold">
-                        NEW
-                    </div>
-
-                </div>
-
-                <div class="product-name">
-                    CARDHOLDER / SILVER 03
-                </div>
-
-                <div class="product-info">
-                    <span>ONE SIZE</span>
-                    <span>1 000 ₽</span>
-                </div>
-
-                <button
-                    class="product-button"
-                    onclick="addToCart('CARDHOLDER / SILVER 03', 1000)"
-                >
-                    В КОРЗИНУ
-                </button>
-
-            </div>
-
+                ×
+            </button>
         </div>
 
-    </main>
+        <div class="cart-items" id="cartItems"></div>
 
-    <!-- =========================
-         BANNER
-    ========================= -->
+        <div class="cart-footer">
 
-    <section class="banner">
-
-        <div class="banner-box">
-
-            <div class="banner-title">
-                WALK YOUR WAY.
+            <div class="cart-total">
+                <span>ИТОГО</span>
+                <span id="cartTotal">0 ₽</span>
             </div>
 
-        </div>
-
-    </section>
-
-    <!-- =========================
-         FOOTER
-    ========================= -->
-
-    <footer>
-
-        <div class="footer-inner">
-
-            <div class="footer-logo">
-                GODWAY
-            </div>
-
-            <div class="footer-text">
-                © 2026 GODWAY. ALL RIGHTS RESERVED.
-            </div>
-
-        </div>
-
-    </footer>
-
-    <!-- =========================
-         CART
-    ========================= -->
-
-    <div
-        class="cart-overlay"
-        id="cartOverlay"
-        onclick="closeCart(event)"
-    >
-
-        <div
-            class="cart-panel"
-            onclick="event.stopPropagation()"
-        >
-
-            <div class="cart-header">
-
-                <div class="cart-title">
-                    КОРЗИНА
-                </div>
-
-                <button
-                    class="close-cart"
-                    onclick="closeCart()"
-                >
-                    ×
-                </button>
-
-            </div>
-
-            <div
-                class="cart-items"
-                id="cartItems"
+            <button
+                class="checkout-button"
+                id="checkoutButton"
+                type="button"
             >
-            </div>
-
-            <div class="cart-footer">
-
-                <div class="cart-total">
-
-                    <span>
-                        ИТОГО
-                    </span>
-
-                    <span id="cartTotal">
-                        0 ₽
-                    </span>
-
-                </div>
-
-                <button
-                    class="checkout-button"
-                    onclick="checkout()"
-                >
-                    ОФОРМИТЬ ЗАКАЗ
-                </button>
-
-            </div>
+                ОФОРМИТЬ ЗАКАЗ
+            </button>
 
         </div>
 
     </div>
 
-    <!-- =========================
-         JAVASCRIPT
-    ========================= -->
+</div>
 
-    <script>
-
-        /* =========================
-           CART DATA
-        ========================= */
+<script>
+    (function () {
+        "use strict";
 
         let cart = [];
 
         try {
-
-            const savedCart =
-                localStorage.getItem("godwayCart");
+            const savedCart = localStorage.getItem("godwayCart");
 
             if (savedCart) {
-
-                const parsedCart =
-                    JSON.parse(savedCart);
+                const parsedCart = JSON.parse(savedCart);
 
                 if (Array.isArray(parsedCart)) {
-
-                    cart = parsedC
-
-
-art;
-
+                    cart = parsedCart.filter(function (item) {
+                        return (
+                            item &&
+                            typeof item.name === "string" &&
+                            Number.isFinite(Number(item.price)) &&
+                            Number(item.quantity) > 0
+                        );
+                    }).map(function (item) {
+                        return {
+                            name: item.name,
+                            price: Number(item.price),
+                            quantity: Number(item.quantity)
+                        };
+                    });
                 }
-
             }
-
         } catch (error) {
-
             cart = [];
-
         }
-
-        /* =========================
-           SAVE CART
-        ========================= */
 
         function saveCart() {
-
             try {
-
-                localStorage.setItem(
-                    "godwayCart",
-                    JSON.stringify(cart)
-                );
-
+                localStorage.setItem("godwayCart", JSON.stringify(cart));
             } catch (error) {
-
-                console.log(
-                    "Не удалось сохранить корзину"
-                );
-
+                console.warn("Не удалось сохранить корзину.");
             }
-
         }
 
-        /* =========================
-           ADD PRODUCT
-        ========================= */
-
-        function addToCart(name, price) {
-
-            const existingProduct =
-                cart.find(
-                    item => item.name === name
-                );
-
-            if (existingProduct) {
-
-                existingProduct.quantity += 1;
-
-            } else {
-
-                cart.push({
-
-                    name: name,
-
-                    price: price,
-
-                    quantity: 1
-
-                });
-
-            }
-
-            saveCart();
-
-            updateCart();
-
-            /*
-             * ВАЖНО:
-             * Корзина НЕ открывается автоматически.
-             * Поэтому можно спокойно добавить
-             * несколько разных товаров подряд.
-             */
-
+        function formatPrice(price) {
+            return Number(price).toLocaleString("ru-RU") + " ₽";
         }
 
-        /* =========================
-           UPDATE CART
-        ========================= */
+        function getCartQuantity() {
+            return cart.reduce(function (total, item) {
+                return total + item.quantity;
+            }, 0);
+        }
+
+        function getCartTotal() {
+            return cart.reduce(function (total, item) {
+                return total + item.price * item.quantity;
+            }, 0);
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .r
+
+
+eplace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "'");
+        }
 
         function updateCart() {
+            const cartCount = document.getElementById("cartCount");
+            const cartItems = document.getElementById("cartItems");
+            const cartTotal = document.getElementById("cartTotal");
 
-            const cartItems =
-                document.getElementById("cartItems");
+            if (!cartCount || !cartItems || !cartTotal) {
+                return;
+            }
 
-            const cartCount =
-                document.getElementById("cartCount");
-
-            const cartTotal =
-                document.getElementById("cartTotal");
-
-            if (!cartItems) return;
-
-            cartItems.innerHTML = "";
+            cartCount.textContent = getCartQuantity();
+            cartTotal.textContent = formatPrice(getCartTotal());
 
             if (cart.length === 0) {
+                cartItems.innerHTML =
+                    '<div class="empty-cart">В КОРЗИНЕ ПОКА НИЧЕГО НЕТ</div>';
 
-                cartItems.innerHTML = `
-                    <div class="empty-cart">
-                        КОРЗИНА ПОКА ПУСТА
-                    </div>
-                `;
+                return;
+            }
 
-            } else {
+            cartItems.innerHTML = cart.map(function (item, index) {
+                return `
+                    <div class="cart-item">
 
-                cart.forEach(
-                    (item, index) => {
-
-                        const itemElement =
-                            document.createElement("div");
-
-                        itemElement.className =
-                            "cart-item";
-
-                        const itemSum =
-                            item.price *
-                            item.quantity;
-
-                        itemElement.innerHTML = `
-
-                            <div class="cart-item-top">
-
-                                <div class="cart-item-name">
-                                    ${escapeHTML(item.name)}
-                                </div>
-
-                                <div class="cart-item-price">
-                                    ${formatPrice(itemSum)} ₽
-                                </div>
-
+                        <div>
+                            <div class="cart-item-name">
+                                ${escapeHtml(item.name)}
                             </div>
 
-                            <div class="cart-item-bottom">
+                            <div class="cart-item-price">
+                                ${formatPrice(item.price)} / шт.
+                            </div>
 
-                                <div class="quantity">
-
-                                    <button
-                                        onclick="changeQuantity(${index}, -1)"
-                                    >
-                                        −
-                                    </button>
-
-                                    <span>
-                                        ${item.quantity}
-                                    </span>
-
-                                    <button
-                                        onclick="changeQuantity(${index}, 1)"
-                                    >
-                                        +
-                                    </button>
-
-                                </div>
+                            <div class="cart-item-controls">
 
                                 <button
-                                    class="remove-item"
-                                    onclick="removeFromCart(${index})"
+                                    class="quantity-button"
+                                    type="button"
+                                    data-cart-action="decrease"
+                                    data-index="${index}"
+                                >
+                                    −
+                                </button>
+
+                                <span class="quantity">
+                                    ${item.quantity}
+                                </span>
+
+                                <button
+                                    class="quantity-button"
+                                    type="button"
+                                    data-cart-action="increase"
+                                    data-index="${index}"
+                                >
+                                    +
+                                </button>
+
+                                <button
+                                    class="remove-button"
+                                    type="button"
+                                    data-cart-action="remove"
+                                    data-index="${index}"
                                 >
                                     УДАЛИТЬ
                                 </button>
 
                             </div>
+                        </div>
 
-                        `;
+                        <div class="cart-item-total">
+                            ${formatPrice(item.price * item.quantity)}
+                        </div>
 
-                        cartItems.appendCh
-
-
-заказа подключим следующим этапом."
-            );
-
+                    </div>
+                `;
+            }).join("");
         }
 
-        /* =========================
-           FORMAT PRICE
-        ========================= */
+        function addToCart(name, price) {
+            const existingItem = cart.find(function (item) {
+                return item.name === name;
+            });
 
-        function formatPrice(price) {
-
-            return Number(price)
-                .toLocaleString(
-                    "ru-RU"
-                );
-
-        }
-
-        /* =========================
-           SECURITY
-        ========================= */
-
-        function escapeHTML(text) {
-
-            const div =
-                document.createElement("div");
-
-            div.textContent =
-                text;
-
-            return div.innerHTML;
-
-        }
-
-        /* =========================
-           INITIAL UPDATE
-        ========================= */
-
-        updateCart();
-
-    </script>
-
-</body>
-</html>
-
-
-ild(
-                            itemElement
-                        );
-
-                    }
-                );
-
-            }
-
-            const totalQuantity =
-                cart.reduce(
-                    (total, item) =>
-                        total + item.quantity,
-                    0
-                );
-
-            const totalPrice =
-                cart.reduce(
-                    (total, item) =>
-                        total +
-                        item.price *
-                        item.quantity,
-                    0
-                );
-
-            cartCount.textContent =
-                totalQuantity;
-
-            cartTotal.textContent =
-                formatPrice(totalPrice) + " ₽";
-
-        }
-
-        /* =========================
-           CHANGE QUANTITY
-        ========================= */
-
-        function changeQuantity(
-            index,
-            change
-        ) {
-
-            if (!cart[index]) return;
-
-            cart[index].quantity += change;
-
-            if (cart[index].quantity <= 0) {
-
-                cart.splice(index, 1);
-
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: Number(price),
+                    quantity: 1
+                });
             }
 
             saveCart();
-
             updateCart();
-
         }
-
-        /* =========================
-           REMOVE PRODUCT
-        ========================= */
-
-        function removeFromCart(index) {
-
-            if (!cart[index]) return;
-
-            cart.splice(index, 1);
-
-            saveCart();
-
-            updateCart();
-
-        }
-
-        /* =========================
-           OPEN CART
-        ========================= */
 
         function openCart() {
+            const overlay = document.getElementById("cartOverlay");
 
-            const overlay =
-                document.getElementById(
-                    "cartOverlay"
-                );
-
-            overlay.classList.add(
-                "active"
-            );
-
-            document.body.style.overflow =
-                "hidden";
-
-        }
-
-        /* =========================
-           CLOSE CART
-        ========================= */
-
-        function closeCart(event) {
-
-            if (
-                event &&
-                event.target &&
-                event.target.id !==
-                "cartOverlay"
-            ) {
-
-                return;
-
+            if (overlay) {
+                overlay.classList.add("active");
             }
-
-            const overlay =
-                document.getElementById(
-                    "cartOverlay"
-                );
-
-            overlay.classList.remove(
-                "active"
-            );
-
-            document.body.style.overflow =
-                "";
-
         }
 
-        /* =========================
-           FILTER PRODUCTS
-        ========================= */
+        function closeCart() {
+            const overlay = document.getElementById("cartOverlay");
 
-        function filterProducts(
-            category,
-            button
-        ) {
-
-            const products =
-                document.querySelectorAll(
-                    ".product"
-                );
-
-            const buttons =
-                document.querySelectorAll(
-                    ".category"
-                );
-
-            buttons.forEach(
-                item =>
-                    item.classList.remove(
-                        "active"
-                    )
-            );
-
-            button.classList.add(
-                "active"
-            );
-
-            products.forEach(
-                product => {
-
-                    const productCategory =
-                        product.dataset.category;
-
-                    if (
-                        category === "all" ||
-                        productCategory === category
-                    ) {
-
-                        product.classList.remove(
-                            "hidden"
-                        );
-
-                    } else {
-
-                        product.classList.add(
-                            "hidden"
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-
-        /* =========================
-           CHECKOUT
-        ========================= */
-
-        function checkout() {
-
-            if (cart.length === 0) {
-
-                alert(
-                    "Корзина пуста"
-                );
-
-                return;
-
+            if (overlay) {
+                overlay.classList.remove("active");
             }
+        }
 
-            alert(
-                "Оформление
+        function filterProducts(category, activeButton) {
+            const products = document.querySelectorAll(".product");
+            const categoryButtons = document.querySelectorAll(".category");
+
+            categoryButtons.forEach(fu
