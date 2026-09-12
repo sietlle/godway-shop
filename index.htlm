@@ -1,1 +1,105 @@
+<section class="hero">
+  <h1>GOD<br>WAY.</h1>
 
+  <p>
+    Создано для тех, кто выбирает свой путь.
+  </p>
+
+  <a href="#catalog" class="button">
+    Смотреть коллекцию
+  </a>
+</section>
+
+<section class="section" id="catalog">
+
+  <div class="section-title">
+    Коллекция
+  </div>
+
+  <div class="products">
+
+    <div class="product">
+      <div class="product-image">
+        PHOTO
+      </div>
+
+      <div class="product-info">
+        <div class="product-name">
+          Longsleeve Black
+        </div>
+
+        <div class="product-price">
+          2000 ₽
+        </div>
+
+        <button>
+          В корзину
+        </button>
+      </div>
+    </div>
+
+
+    <div class="product">
+      <div class="product-image">
+        PHOTO
+      </div>
+
+      <div class="product-info">
+        <div class="product-name">
+          Longsleeve White
+        </div>
+
+        <div class="product-price">
+          2000 ₽
+        </div>
+
+        <button>
+          В корзину
+        </button>
+      </div>
+    </div>
+
+
+    <div class="product">
+      <div class="product-image">
+        PHOTO
+      </div>
+
+      <div class="product-info">
+        <div class="product-name">
+          Cardholder Black
+        </div>
+
+        <div class="product-price">
+          1 000 ₽
+        </div>
+
+        <button>
+          В корзину
+        </button>
+      </div>
+    </div>
+
+
+    <div class="product">
+      <div class="product-image">
+        PHOTO
+      </div>
+
+      <div class="product-info">
+        <div class="product-name">
+          Cardholder Silver
+        </div>
+
+        <div class="product-price">
+          1 000 ₽
+        </div>
+
+        <button>
+          В корзину
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
