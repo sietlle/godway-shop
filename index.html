@@ -1,759 +1,310 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#111111">
-<title>GODWAY — Clothing</title>
 
-<!-- Telegram Mini Apps SDK -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+data-add-to-cart
+                data-name="LONGSLEEVE / WHITE"
+                data-price="2000"
+            >
+
+                <img
+                    src="longsleeve-white.jpg"
+                    alt="LONGSLEEVE / WHITE"
+                    loading="lazy"
+                    onerror="this.parentElement.classList.add('img-missing')"
+                >
 
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #fff;
-        color: #111;
-        overflow-x: hidden;
-    }
-
-    button {
-        font-family: inherit;
-        cursor: pointer;
-    }
-
-    header {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        height: 72px;
-        padding: 0 24px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: #fff;
-        border-bottom: 1px solid #e5e5e5;
-    }
-
-    .logo {
-        font-size: 24px;
-        font-weight: 900;
-        letter-spacing: -1px;
-    }
-
-    .cart-button {
-        border: none;
-        background: #111;
-        color: #fff;
-        border-radius: 30px;
-        padding: 12px 18px;
-        font-size: 14px;
-        font-weight: 700;
-    }
-
-    .hero {
-        min-height: 500px;
-        background: #111;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        overflow: hidden;
-    }
-
-    .hero-logo {
-        width: min(78vw, 900px);
-        max-height: 70%;
-        object-fit: contain;
-        display: block;
-    }
-
-    .catalog {
-        padding: 70px 24px 100px;
-        max-width: 1500px;
-        margin: 0 auto;
-    }
-
-    .catalog-top {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 35px;
-        flex-wrap: wrap;
-    }
-
-    .catalog-title {
-        font-size: 42px;
-        font-weight: 900;
-        letter-spacing: -2px;
-    }
-
-    .categories {
-        display: flex;
-        gap: 8px;
-        flex-wrap: wrap;
-    }
-
-    .category {
-        border: 1px solid #111;
-        background: #fff;
-        color: #111;
-        border-radius: 30px;
-        padding: 10px 17px;
-        font-size: 12px;
-        font-weight: 700;
-        transition: .2s;
-    }
-
-    .category:hover,
-    .category.active {
-        background: #111;
-        color: #fff;
-    }
-
-    .products {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 28px 16px;
-    }
-
-    .product {
-        min-width: 0;
-    }
-
-    .product.hidden {
-        display: none;
-    }
-
-    .product-image {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 4 / 5;
-        background: #f1f1f1;
-        overflow: hidden;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .product-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    /* Пока нет фото (файл не найден) — показываем плейсхолдер вместо картинки */
-    .product-image.img-missing img {
-        display: none;
-    }
-
-    .product-image::after {
-        content: none;
-        font-size: 30px;
-        font-weight: 900;
-        letter-spacing: -1px;
-        color: #ccc;
-    }
-
-    .product-image.img-missing::after {
-        content: "GODWAY";
-    }
-
-    .sold {
-        position: absolute;
-        top: 14px;
-        left: 14px;
-        z-index: 2;
-        padding: 7px 10px;
-        background: #111;
-        color: #fff;
-        font-size: 10px;
-        font-weight: 700;
-        letter-spacing: .5px;
-    }
-
-    .product-name {
-        margin-top: 13px;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: .2px;
-    }
-
-    .product-info {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        margin-top: 6px;
-        color: #666;
-        font-size: 12px;
-    }
-
-    .product-button {
-        width: 100%;
-        margin-top: 13px;
-        padding: 12px;
-        border: 1px solid #111;
-        background: #fff;
-        color: #111;
-        font-size: 11px;
-        font-weight: 700;
-        transition: .2s;
-    }
-
-    .product-button:hover {
-        background: #111;
-        color: #fff;
-    }
-
-    .banner {
-        margin: 0 24px 100px;
-        min-height: 330px;
-        background: #111;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 40px;
-    }
-
-    .banner-text {
-        font-size: clamp(45px, 9vw, 130px);
-        line-height: .85;
-        font-weight: 900;
-        letter-spacing: -6px;
-    }
-
-    footer {
-        border-top: 1px solid #e5e5e5;
-        padding: 35px 24px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        font-size: 11px;
-        color: #777;
-    }
-
-    .footer-logo {
-        font-size: 18px;
-        font-weight: 900;
-        color: #111;
-    }
-
-    .cart-overlay {
-        position: fixed;
-        inset: 0;
-        z-index: 999;
-        background: rgba(0, 0, 0, .45);
-        opacity: 0;
-        visibility: hidden;
-        transition: .25s;
-    }
-
-    .cart-overlay.active {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .cart-panel {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: min(460px, 100%);
-        height: 100%;
-        background: #fff;
-        padding: 25px;
-        transform: translateX(100%);
-        transition: .25s;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .cart-overlay.active .cart-panel {
-        transform: translateX(0);
-    }
-
-    .cart-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #ddd;
-    }
-
-    .cart-title {
-        font-size: 24px;
-        font-weight: 900;
-    }
-
-    .close-cart {
-        width: 30px;
-        height: 30px;
-        border: 1px solid #111;
-        background: transparent;
-        border-radius: 50%;
-        font-size: 15px;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .cart-items {
-        flex: 1;
-        overflow-y: auto;
-        padding: 20px 0;
-    }
-
-    .empty-cart {
-        padding: 50px 0;
-        text-align: center;
-        color: #777;
-        font-size: 13px;
-    }
-
-    .cart-item {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        gap: 15px;
-        padding: 16px 0;
-        border-bottom: 1px solid #eee;
-    }
-
-    .cart-item-name {
-        font-size: 13px;
-        font-weight: 700;
-    }
-
-    .cart-item-price {
-        margin-top: 5px;
-        font-size: 12px;
-        color: #777;
-    }
-
-    .cart-item-controls {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-top: 12px;
-    }
-
-    .quantity-button {
-        width: 28px;
-        height: 28px;
-        border: 1px solid #111;
-        background: #fff;
-        font-size: 16px;
-    }
-
-    .quantity {
-        min-width: 25px;
-        text-align: center;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .remove-button {
-        margin-left: 8px;
-        border: none;
-        background: transparent;
-        color: #777;
-        font-size: 11px;
-        text-decoration: underline;
-    }
-
-    .cart-item-total {
-        font-size: 13px;
-        font-weight: 700;
-        white-space: nowrap;
-    }
-
-    .cart-footer {
-        padding-top: 20px;
-        border-top: 1px solid #ddd;
-    }
-
-    .cart-total {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 15px;
-        font-size: 16px;
-        font-weight: 900;
-    }
-
-    .checkout-button {
-        width: 100%;
-        border: none;
-        background: #111;
-        color: #fff;
-        padding: 16px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .checkout-button:disabled {
-        opacity: .5;
-        cursor: default;
-    }
-
-    /* --- Форма оформления заказа --- */
-    .order-form {
-        display: none;
-        flex-direction: column;
-        gap: 14px;
-        padding: 20px 0;
-        overflow-y: auto;
-        flex: 1;
-    }
-
-    .order-form.active {
-        display: flex;
-    }
-
-    .cart-items.hidden-step,
-    .cart-footer.hidden-step {
-        display: none;
-    }
-
-    .form-field {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .form-field label {
-        font-size: 11px;
-        font-weight: 700;
-        letter-spacing: .3px;
-        color: #666;
-    }
-
-    .form-field input,
-    .form-field textarea {
-        border: 1px solid #ccc;
-        padding: 12px;
-        font-size: 14px;
-        font-family: inherit;
-        background: #fff;
-        color: #111;
-        resize: none;
-    }
-
-    .form-field input:focus,
-    .form-field textarea:focus {
-        outline: none;
-        border-color: #111;
-    }
-
-    .form-field.invalid input,
-    .form-field.invalid textarea {
-        border-color: #d33;
-    }
-
-    .order-summary {
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
-        padding: 14px 0;
-        font-size: 13px;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
-
-    .order-summary-total {
-        display: flex;
-        justify-content: space-between;
-        font-weight: 900;
-        font-size: 15px;
-        margin-top: 6px;
-    }
-
-    .back-to-cart {
-        border: none;
-        background: transparent;
-        color: #666;
-        font-size: 12px;
-        text-decoration: underline;
-        align-self: flex-start;
-        padding: 0;
-    }
-
-    .form-submit {
-        width: 100%;
-        border: none;
-        background: #111;
-        color: #fff;
-        padding: 16px;
-        font-size: 12px;
-        font-weight: 700;
-        margin-top: 4px;
-    }
-
-    .form-submit:disabled {
-        opacity: .5;
-    }
-
-    .form-note {
-        font-size: 11px;
-        color: #999;
-    }
-
-    .order-success {
-        display: none;
-        flex: 1;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 14px;
-        padding: 30px 10px;
-    }
-
-    .order-success.active {
-        display: flex;
-    }
-
-    .order-success-title {
-        font-size: 22px;
-        font-weight: 900;
-    }
-
-    .order-success-text {
-        font-size: 13px;
-        color: #666;
-        line-height: 1.5;
-    }
-
-    .order-success-close {
-        margin-top: 10px;
-        border: 1px solid #111;
-        background: #111;
-        color: #fff;
-        padding: 14px 22px;
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    /* --- Учитываем отступы Telegram (safe area / шапка клиента) --- */
-    body.in-telegram header {
-        padding-top: env(safe-area-inset-top, 0px);
-        height: calc(72px + env(safe-area-inset-top, 0px));
-    }
-
-    body.in-telegram footer {
-        padding-bottom: calc(35px + env(safe-area-inset-bottom, 0px));
-    }
-
-    @media (max-width: 900px) {
-        .products {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px 12px;
-        }
-
-        .catalog-top {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .catalog-title {
-            font-size: 34px;
-        }
-
-        .hero {
-            min-height: 380px;
-        }
-
-        .hero-logo {
-            width: 88vw;
-            max-height: 62%;
-        }
-    }
-
-    @media (max-width: 600px) {
-        header {
-            height: 64px;
-            padding: 0 16px;
-        }
-
-        .logo {
-            font-size: 21px;
-        }
-
-        .cart-button {
-            padding: 10px 15px;
-        }
-
-        .catalog {
-            padding: 50px 16px 70px;
-        }
-
-        .catalog-title {
-            font-size: 30px;
-        }
-
-        .categories {
-            width: 100%;
-        }
-
-        .category {
-            padding: 9px 13px;
-        }
-
-        .product-name {
-            font-size: 12px;
-        }
-
-        .product-info {
-            font-size: 11px;
-        }
-
-        .product-button {
-            padding: 11px 5px;
-            font-size: 10px;
-        }
-
-        .banner {
-            margin: 0 16px 70px;
-            min-height: 250px;
-        }
-
-        .banner-text {
-            letter-spacing: -3px;
-        }
-
-        footer {
-            padding: 28px 16px;
-            flex-direction: column;
-            align-items: flex-start;
-        }
-    }
-</style>
-</head>
-
-<body>
-
-<header>
-    <div class="logo">GODWAY</div>
-    <button class="cart-button" id="cartButton" type="button">
-        КОРЗИНА <span id="cartCount">0</span>
-    </button>
-</header>
-
-<section class="hero">
-    <img class="hero-logo" src="images/godway-logo.png" alt="GODWAY">
-</section>
-
-<section class="catalog">
-
-    <div class="catalog-top">
-        <h1 class="catalog-title">КАТАЛОГ</h1>
-
-        <div class="categories">
-            <button class="category active" type="button" data-category="all">ВСЁ</button>
-            <button class="category" type="button" data-category="clothing">ОДЕЖДА</button>
-            <button class="category" type="button" data-category="accessories">АКСЕССУАРЫ</button>
-        </div>
-    </div>
-
-    <div class="products" id="products">
-
-        <article class="product" data-category="clothing">
-            <div class="product-image" data-add-to-cart data-name="LONGSLEEVE / BLACK" data-price="2000"><img src="images/longsleeve-black.jpg" alt="LONGSLEEVE / BLACK" loading="lazy" onerror="this.parentElement.classList.add('img-missing')">
                 <div class="sold">NEW</div>
+
             </div>
-            <div class="product-name">LONGSLEEVE / BLACK</div>
+
+            <div class="product-name">
+                LONGSLEEVE / WHITE
+            </div>
+
             <div class="product-info">
                 <span>M / L</span>
                 <span>2 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="LONGSLEEVE / BLACK" data-price="2000">В КОРЗИНУ</button>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="LONGSLEEVE / WHITE"
+                data-price="2000"
+            >
+                В КОРЗИНУ
+            </button>
+
         </article>
 
-        <article class="product" data-category="clothing">
-            <div class="product-image" data-add-to-cart data-name="LONGSLEEVE / WHITE" data-price="2000"><img src="images/longsleeve-white.jpg" alt="LONGSLEEVE / WHITE" loading="lazy" onerror="this.parentElement.classList.add('img-missing')">
-                <div class="sold">NEW</div>
-            </div>
-            <div class="product-name">LONGSLEEVE / WHITE</div>
-            <div class="product-info">
-                <span>M / L</span>
-                <span>2 000 ₽</span>
-            </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="LONGSLEEVE / WHITE" data-price="2000">В КОРЗИНУ</button>
-        </article>
+        <!-- BLACK 01 -->
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 01" data-price="1000"><img src="images/cardholder-black-01.jpg" alt="CARDHOLDER / BLACK 01" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
-            <div class="product-name">CARDHOLDER / BLACK 01</div>
-            <div class="product-info">
-                <span>ONE SIZE</span>
-                <span>1 000 ₽</span>
-            </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 01" data-price="1000">В КОРЗИНУ</button>
-        </article>
+        <article
+            class="product"
+            data-category="accessories"
+        >
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 02" data-price="1000"><img src="images/cardholder-black-02.jpg" alt="CARDHOLDER / BLACK 02" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
-            <div class="product-name">CARDHOLDER / BLACK 02</div>
-            <div class="product-info">
-                <span>ONE SIZE</span>
-                <span>1 000 ₽</span>
-            </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 02" data-price="1000">В КОРЗИНУ</button>
-        </article>
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 01"
+                data-price="1000"
+            >
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 03" data-price="1000"><img src="images/cardholder-black-03.jpg" alt="CARDHOLDER / BLACK 03" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
-            <div class="product-name">CARDHOLDER / BLACK 03</div>
-            <div class="product-info">
-                <span>ONE SIZE</span>
-                <span>1 000 ₽</span>
-            </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 03" data-price="1000">В КОРЗИНУ</button>
-        </article>
+                <img
+                    src="cardholder-black-01.jpg"
+                    alt="CARDHOLDER / BLACK 01"
+                    loading="lazy"
+                    onerror="this.parentElement.classList.add('img-missing')"
+                >
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 01" data-price="1000"><img src="images/cardholder-silver-01.jpg" alt="CARDHOLDER / SILVER 01" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
-            <div class="product-name">CARDHOLDER / SILVER 01</div>
+            </div>
+
+            <div class="product-name">
+                CARDHOLDER / BLACK 01
+            </div>
+
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 01" data-price="1000">В КОРЗИНУ</button>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 01"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+
         </article>
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 02" data-price="1000"><img src="images/cardholder-silver-02.jpg" alt="CARDHOLDER / SILVER 02" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
-            <div class="product-name">CARDHOLDER / SILVER 02</div>
+        <!-- BLACK 02 -->
+
+        <article
+            class="product"
+            data-category="accessories"
+        >
+
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 02"
+                data-price="1000"
+            >
+
+                <img
+                    src="cardholder-black-02.jpg"
+                    alt="CARDHOLDER / BLACK 02"
+                    loading="lazy"
+                    onerror="this.parentElement.classList.add('img-missing')"
+                >
+
+            </div>
+
+            <div class="product-name">
+                CARDHOLDER / BLACK 02
+            </div>
+
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 02" data-price="1000">В КОРЗИНУ</button>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 02"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+
         </article>
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 03" data-price="1000"><img src="images/cardholder-silver-03.jpg" alt="CARDHOLDER / SILVER 03" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
-            <div class="product-name">CARDHOLDER / SILVER 03</div>
+        <!-- BLACK 03 -->
+
+        <article
+            class="product"
+            data-category="accessories"
+        >
+
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / BLACK 03"
+                data-price="1000"
+            >
+
+                <img
+                    src="cardholder-black-03.jpg"
+                    alt="CARDHOLDER / BLACK 03"
+                    loading="lazy"
+                    onerror="this.parentElement.classList.add('img-missing')"
+                >
+
+            </div>
+
+            <div class="product-name">
+                CARDHOLDER / BLACK 03
+            </div>
+
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 03" data-price="1000">В КОРЗИНУ</button>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name=
+
+
+"CARDHOLDER / BLACK 03"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+
+        </article>
+
+        <!-- SILVER 01 -->
+
+        <article
+            class="product"
+            data-category="accessories"
+        >
+
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 01"
+                data-price="1000"
+            >
+
+                <img
+                    src="cardholder-silver-01.jpg"
+                    alt="CARDHOLDER / SILVER 01"
+                    loading="lazy"
+                    onerror="this.parentElement.classList.add('img-missing')"
+                >
+
+            </div>
+
+            <div class="product-name">
+                CARDHOLDER / SILVER 01
+            </div>
+
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 01"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+
+        </article>
+
+        <!-- SILVER 02 -->
+
+        <article
+            class="product"
+            data-category="accessories"
+        >
+
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 02"
+                data-price="1000"
+            >
+
+                <img
+                    src="cardholder-silver-02.jpg"
+                    alt="CARDHOLDER / SILVER 02"
+                    loading="lazy"
+                    onerror="this.parentElement.classList.add('img-missing')"
+                >
+
+            </div>
+
+            <div class="product-name">
+                CARDHOLDER / SILVER 02
+            </div>
+
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 02"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+
+        </article>
+
+        <!-- SILVER 03 -->
+
+        <article
+            class="product"
+            data-category="accessories"
+        >
+
+            <div
+                class="product-image"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 03"
+                data-price="1000"
+            >
+
+                <img
+                    src="cardholder-silver-03.jpg"
+                    alt="CARDHOLDER / SILVER 03"
+                    loading="lazy"
+                    onerror="this.parentElement.classList.add('img-missing')"
+                >
+
+            </div>
+
+            <div class="product-name">
+                CARDHOLDER / SILVER 03
+            </div>
+
+            <div class="product-info">
+                <span>ONE SIZE</span>
+                <span>1 000 ₽</span>
+            </div>
+
+            <button
+                class="product-button"
+                type="button"
+                data-add-to-cart
+                data-name="CARDHOLDER / SILVER 03"
+                data-price="1000"
+            >
+                В КОРЗИНУ
+            </button>
+
         </article>
 
     </div>
+
 </section>
 
 <section class="banner">
@@ -765,557 +316,1609 @@
     <div>© 2026 GODWAY. ALL RIGHTS RESERVED.</div>
 </footer>
 
-<div class="cart-overlay" id="cartOverlay">
+<!-- CART -->
+
+<div
+    class="cart-overlay"
+    id="cartOverlay"
+>
+
     <div class="cart-panel">
+
         <div class="cart-header">
-            <div class="cart-title">КОРЗИНА</div>
-            <button class="close-cart" id="closeCart" type="button" aria-label="Закрыть корзину">×</button>
+
+            <div class="cart-title">
+                КОРЗИНА
+            </div>
+
+            <button
+                class="close-cart"
+                id="closeCart"
+                type="button"
+                aria-label="Закрыть корзину"
+            >
+                ×
+
+
+legram &&
+    window.Telegram.WebApp
+        ? window.Telegram.WebApp
+        : null;
+
+if(tg){
+
+    document.body.classList.add("in-telegram");
+
+    tg.ready();
+    tg.expand();
+
+    try{
+
+        tg.setHeaderColor("#111111");
+        tg.setBackgroundColor("#ffffff");
+
+    }catch(error){}
+
+    try{
+
+        tg.enableClosingConfirmation();
+
+    }catch(error){}
+
+}
+
+/* ==========================================================
+   HAPTIC
+   ========================================================== */
+
+function haptic(type){
+
+    if(!tg || !tg.HapticFeedback){
+        return;
+    }
+
+    try{
+
+        if(
+            type === "success" ||
+            type === "error" ||
+            type === "warning"
+        ){
+
+            tg.HapticFeedback.notificationOccurred(type);
+
+        }else{
+
+            tg.HapticFeedback.impactOccurred(
+                type || "light"
+            );
+
+        }
+
+    }catch(error){}
+
+}
+
+/* ==========================================================
+   CART
+   ========================================================== */
+
+let cart = [];
+
+try{
+
+    const savedCart =
+        localStorage.getItem("godwayCart");
+
+    if(savedCart){
+
+        const parsed =
+            JSON.parse(savedCart);
+
+        if(Array.isArray(parsed)){
+
+            cart =
+                parsed
+                .filter(function(item){
+
+                    return (
+                        item &&
+                        typeof item.name === "string" &&
+                        Number.isFinite(
+                            Number(item.price)
+                        ) &&
+                        Number(item.quantity) > 0
+                    );
+
+                })
+                .map(function(item){
+
+                    return {
+
+                        name:item.name,
+
+                        price:Number(item.price),
+
+                        quantity:Number(item.quantity)
+
+                    };
+
+                });
+
+        }
+
+    }
+
+}catch(error){
+
+    cart = [];
+
+}
+
+function saveCart(){
+
+    try{
+
+        localStorage.setItem(
+            "godwayCart",
+            JSON.stringify(cart)
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Не удалось сохранить корзину."
+        );
+
+    }
+
+}
+
+function formatPrice(price){
+
+    return (
+        Number(price)
+        .toLocaleString("ru-RU")
+        + " ₽"
+    );
+
+}
+
+function getCartQuantity(){
+
+    return cart.reduce(
+        function(total,item){
+
+            return total + item.quantity;
+
+        },
+        0
+    );
+
+}
+
+function getCartTotal(){
+
+    return cart.reduce(
+        function(total,item){
+
+            return (
+                total +
+                item.price *
+                item.quantity
+            );
+
+        },
+        0
+    );
+
+}
+
+function escapeHtml(value){
+
+    return String(value)
+
+        .replace(/&/g,"&amp;")
+
+        .replace(/</g,"&lt;")
+
+        .replace(/>/g,"&gt;")
+
+        .replace(/"/g,"&quot;")
+
+        .replace(/'/g,"'");
+
+}
+
+/* ==========================================================
+   UPDATE CART
+   ========================================================== */
+
+function updateCart(){
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartTotal =
+        document.getElementById("cartTotal");
+
+    if(
+        !cartCount ||
+        !cartItems ||
+        !cartTotal
+    ){
+
+        return;
+
+    }
+
+    cartCount.textContent =
+        getCartQuantity();
+
+    cartTotal.textContent =
+        formatPrice(getCartTotal());
+
+    if(cart.length === 0){
+
+        cartItems.innerHTML =
+            '<div class="empty-cart">В КОРЗИНЕ ПОКА НИЧЕГО НЕТ</div>';
+
+        return;
+
+    }
+
+    cartItems.innerHTML =
+        cart.map(function(item,index){
+
+            return `
+
+                <div class="cart-item">
+
+                    <div>
+
+                        <div class="cart-item-name">
+                            ${escapeHtml(item.name)}
+                        </div>
+
+                        <div class="cart-item-price">
+                            ${form
+
+
+</button>
+
         </div>
 
-        <div class="cart-items" id="cartItems"></div>
+        <div
+            class="cart-items"
+            id="cartItems"
+        ></div>
 
-        <div class="cart-footer" id="cartFooter">
+        <div
+            class="cart-footer"
+            id="cartFooter"
+        >
+
             <div class="cart-total">
                 <span>ИТОГО</span>
                 <span id="cartTotal">0 ₽</span>
             </div>
-            <button class="checkout-button" id="checkoutButton" type="button">ОФОРМИТЬ ЗАКАЗ</button>
+
+            <button
+                class="checkout-button"
+                id="checkoutButton"
+                type="button"
+            >
+                ОФОРМИТЬ ЗАКАЗ
+            </button>
+
         </div>
 
-        <form class="order-form" id="orderForm">
-            <button class="back-to-cart" id="backToCart" type="button">← НАЗАД В КОРЗИНУ</button>
+        <!-- ORDER FORM -->
 
-            <div class="form-field" id="fieldName">
-                <label for="orderName">ИМЯ *</label>
-                <input type="text" id="orderName" name="name" autocomplete="name" required>
+        <form
+            class="order-form"
+            id="orderForm"
+        >
+
+            <button
+                class="back-to-cart"
+                id="backToCart"
+                type="button"
+            >
+                ← НАЗАД В КОРЗИНУ
+            </button>
+
+            <div
+                class="form-field"
+                id="fieldName"
+            >
+
+                <label for="orderName">
+                    ИМЯ *
+                </label>
+
+                <input
+                    type="text"
+                    id="orderName"
+                    name="name"
+                    autocomplete="name"
+                    required
+                >
+
             </div>
 
-            <div class="form-field" id="fieldPhone">
-                <label for="orderPhone">ТЕЛЕФОН *</label>
-                <input type="tel" id="orderPhone" name="phone" autocomplete="tel" placeholder="+7 999 999 99 99" required>
+            <div
+                class="form-field"
+                id="fieldPhone"
+            >
+
+                <label for="orderPhone">
+                    ТЕЛЕФОН *
+                </label>
+
+                <input
+                    type="tel"
+                    id="orderPhone"
+                    name="phone"
+                    autocomplete="tel"
+                    placeholder="+7 999 999 99 99"
+                    required
+                >
+
             </div>
 
-            <div class="form-field" id="fieldAddress">
-                <label for="orderAddress">АДРЕС ДОСТАВКИ *</label>
-                <input type="text" id="orderAddress" name="address" autocomplete="street-address" required>
+            <div
+                class="form-field"
+                id="fieldAddress"
+            >
+
+                <label for="orderAddress">
+                    АДРЕС ДОСТАВКИ *
+                </label>
+
+                <input
+                    type="text"
+                    id="orderAddress"
+                    name="address"
+                    autocomplete="street-address"
+                    required
+                >
+
             </div>
 
             <div class="form-field">
-                <label for="orderComment">КОММЕНТАРИЙ К ЗАКАЗУ</label>
-                <textarea id="orderComment" name="comment" rows="2"></textarea>
+
+                <label for="orderComment">
+                    КОММЕНТАРИЙ К ЗАКАЗУ
+                </label>
+
+                <textarea
+                    id="orderComment"
+                    name="comment"
+                    rows="2"
+                ></textarea>
+
             </div>
 
-            <div class="order-summary" id="orderSummary"></div>
+            <div
+                class="order-summary"
+                id="orderSummary"
+            ></div>
 
-            <button class="form-submit" id="submitOrder" type="submit">ПОДТВЕРДИТЬ ЗАКАЗ</button>
-            <div class="form-note">После подтверждения заказ будет передан в Telegram магазина.</div>
+            <button
+                class="form-submit"
+                id="submitOrder"
+                type="submit"
+            >
+                ПОДТВЕРДИТЬ ЗАКАЗ
+            </button>
+
+            <div class="form-note">
+                После подтверждения заказ будет передан в Telegram магазина.
+            </div>
+
         </form>
 
-        <div class="order-success" id="orderSuccess">
-            <div class="order-success-title">ЗАКАЗ ПРИНЯТ ✓</div>
-            <div class="order-success-text">Мы получили ваш заказ и свяжемся с вами в Telegram для подтверждения деталей и оплаты.</div>
-            <button class="order-success-close" id="orderSuccessClose" type="button">ЗАКРЫТЬ</button>
+        <!-- SUCCESS -->
+
+        <div
+            class="order-success"
+            id="orderSuccess"
+        >
+
+            <div class="order-success-title">
+                ЗАКАЗ ПРИНЯТ ✓
+            </div>
+
+            <div class="order-success-text">
+                Мы получили ваш заказ и свяжемся с вами в Telegram для подтверждения деталей и оплаты.
+            </div>
+
+            <button
+                class="order-success-close"
+                id="orderSuccessClose"
+                type="button"
+            >
+                ЗАКРЫТЬ
+            </button>
+
         </div>
+
     </div>
+
 </div>
 
 <script>
-(function () {
-    "use strict";
+(function(){
 
-    // ==========================================================
-    // НАСТРОЙКИ — заполните после деплоя бэкенда и создания бота
-    // ==========================================================
-    const CONFIG = {
-        // URL вашего сервера/воркера, который принимает заказ и
-        // пересылает его в Telegram-бот через Bot API sendMessage.
-        // Пример: "https://godway-orders.your-name.workers.dev/order"
-        ORDER_ENDPOINT: "https://falling-sea-05b9.wrldzzze.workers.dev/order",
+"use strict";
 
-        // username бота без @, используется как запасной вариант,
-        // если ORDER_ENDPOINT не настроен или недоступен — тогда
-        // заказ откроется как готовое сообщение в чат с ботом.
-        BOT_USERNAME: "your_bot_username"
+/* ==========================================================
+   GODWAY CONFIG
+   ========================================================== */
+
+const CONFIG = {
+
+    ORDER_ENDPOINT:
+        "https://falling-sea-05b9.wrldzzze.workers.dev/order",
+
+    BOT_USERNAME:
+        "your_bot_username"
+
+};
+
+/* ==========================================================
+   TELEGRAM
+   ========================================================== */
+
+const tg =
+    window.Te
+
+
+atPrice(item.price)} / шт.
+                        </div>
+
+                        <div class="cart-item-controls">
+
+                            <button
+                                class="quantity-button"
+                                type="button"
+                                data-cart-action="decrease"
+                                data-index="${index}"
+                            >
+                                −
+                            </button>
+
+                            <span class="quantity">
+                                ${item.quantity}
+                            </span>
+
+                            <button
+                                class="quantity-button"
+                                type="button"
+                                data-cart-action="increase"
+                                data-index="${index}"
+                            >
+                                +
+                            </button>
+
+                            <button
+                                class="remove-button"
+                                type="button"
+                                data-cart-action="remove"
+                                data-index="${index}"
+                            >
+                                УДАЛИТЬ
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="cart-item-total">
+                        ${formatPrice(
+                            item.price *
+                            item.quantity
+                        )}
+                    </div>
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+/* ==========================================================
+   ADD TO CART
+   ========================================================== */
+
+function addToCart(name,price){
+
+    const existingItem =
+        cart.find(function(item){
+
+            return item.name === name;
+
+        });
+
+    if(existingItem){
+
+        existingItem.quantity += 1;
+
+    }else{
+
+        cart.push({
+
+            name:name,
+
+            price:Number(price),
+
+            quantity:1
+
+        });
+
+    }
+
+    saveCart();
+    updateCart();
+
+    haptic("light");
+
+}
+
+/* ==========================================================
+   CART OPEN/CLOSE
+   ========================================================== */
+
+function openCart(){
+
+    const overlay =
+        document.getElementById(
+            "cartOverlay"
+        );
+
+    if(overlay){
+
+        overlay.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+function closeCart(){
+
+    const overlay =
+        document.getElementById(
+            "cartOverlay"
+        );
+
+    if(overlay){
+
+        overlay.classList.remove(
+            "active"
+        );
+
+    }
+
+    window.setTimeout(
+        showCartStep,
+        250
+    );
+
+}
+
+/* ==========================================================
+   CHECKOUT STEPS
+   ========================================================== */
+
+function showCartStep(){
+
+    const cartItems =
+        document.getElementById(
+            "cartItems"
+        );
+
+    const cartFooter =
+        document.getElementById(
+            "cartFooter"
+        );
+
+    const orderForm =
+        document.getElementById(
+            "orderForm"
+        );
+
+    const orderSuccess =
+        document.getElementById(
+            "orderSuccess"
+        );
+
+    cartItems.classList.remove(
+        "hidden-step"
+    );
+
+    cartFooter.classList.remove(
+        "hidden-step"
+    );
+
+    orderForm.classList.remove(
+        "active"
+    );
+
+    orderSuccess.classList.remove(
+        "active"
+    );
+
+    if(tg && tg.BackButton){
+
+        try{
+
+            tg.BackButton.hide();
+
+        }catch(error){}
+
+    }
+
+}
+
+function showOrderFormStep(){
+
+    if(cart.length === 0){
+
+        haptic("error");
+
+        return;
+
+    }
+
+    document.getElementById(
+        "cartItems"
+    ).classList.add(
+        "hidden-step"
+    );
+
+    document.getElementById(
+        "cartFooter"
+    ).classList.add(
+        "hidden-step"
+    );
+
+    document.getElementById(
+        "orde
+
+
+===================================
+   SUBMIT ORDER
+   ========================================================== */
+
+async function submitOrder(event){
+
+    event.preventDefault();
+
+    if(!validateOrderForm()){
+
+        haptic("error");
+
+        return;
+
+    }
+
+    if(cart.length === 0){
+
+        haptic("error");
+
+        return;
+
+    }
+
+    const submitButton =
+        document.getElementById(
+            "submitOrder"
+        );
+
+    submitButton.disabled = true;
+
+    submitButton.textContent =
+        "ОТПРАВКА...";
+
+    const order = {
+
+        orderId:
+            "GW-" +
+            Date.now()
+            .toString()
+            .slice(-8),
+
+        createdAt:
+            new Date().toISOString(),
+
+        items:
+            cart.map(function(item){
+
+                return {
+
+                    name:item.name,
+
+                    price:item.price,
+
+                    quantity:item.quantity
+
+                };
+
+            }),
+
+        total:
+            getCartTotal(),
+
+        customer:{
+
+            name:
+                document
+                .getElementById(
+                    "orderName"
+                )
+                .value
+                .trim(),
+
+            phone:
+                document
+                .getElementById(
+                    "orderPhone"
+                )
+                .value
+                .trim(),
+
+            address:
+                document
+                .getElementById(
+                    "orderAddress"
+                )
+                .value
+                .trim(),
+
+            comment:
+                document
+                .getElementById(
+                    "orderComment"
+                )
+                .value
+                .trim()
+
+        },
+
+        telegramUser:
+            tg &&
+            tg.initDataUnsafe
+                ? tg.initDataUnsafe.user
+                : null,
+
+        initData:
+            tg
+                ? tg.initData
+                : null
+
     };
 
-    // ==========================================================
-    // Telegram WebApp
-    // ==========================================================
-    const tg = window.Telegram && window.Telegram.WebApp ? window.Telegram.WebApp : null;
+    let delivered = false;
 
-    if (tg) {
-        document.body.classList.add("in-telegram");
-        tg.ready();
-        tg.expand();
+    /* SEND TO CLOUDFLARE WORKER */
 
-        try {
-            tg.setHeaderColor("#111111");
-            tg.setBackgroundColor("#ffffff");
-        } catch (error) {
-            // Некоторые методы недоступны в старых клиентах — игнорируем.
-        }
+    try{
 
-        try {
-            tg.enableClosingConfirmation();
-        } catch (error) {
-            // no-op
-        }
+        const response =
+            await fetch(
+                CONFIG.ORDER_ENDPOINT,
+                {
+
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(
+                            order
+                        )
+
+                }
+            );
+
+        delivered =
+            response.ok;
+
+    }catch(error){
+
+        console.error(
+            "Ошибка отправки:",
+            error
+        );
+
+        delivered = false;
+
     }
 
-    function haptic(type) {
-        if (tg && tg.HapticFeedback) {
-            if (type === "success" || type === "error" || type === "warning") {
-                tg.HapticFeedback.notificationOccurred(type);
-            } else {
-                tg.HapticFeedback.impactOccurred(type || "light");
-            }
-        }
+    if(delivered){
+
+        finishOrder(
+            order,
+            true
+        );
+
+        return;
+
     }
 
-    let cart = [];
+    /* TELEGRAM FALLBACK */
 
-    try {
-        const savedCart = localStorage.getItem("godwayCart");
+    if(tg && tg.sendData){
 
-        if (savedCart) {
-            const parsedCart = JSON.parse(savedCart);
+        try{
 
-            if (Array.isArray(parsedCart)) {
-                cart = parsedCart.filter(function (item) {
-                    return (
-                        item &&
-                        typeof item.name === "string" &&
-                        Number.isFinite(Number(item.price)) &&
-                        Number(item.quantity) > 0
-                    );
-                }).map(function (item) {
-                    return {
-                        name: item.name,
-                        price: Number(item.price),
-                        quantity: Number(item.quantity)
-                    };
-                });
-            }
-        }
-    } catch (error) {
-        cart = [];
-    }
+            tg.sendData(
+                JSON.stringify(
+                    order
+                )
+            );
 
-    function saveCart() {
-        try {
-            localStorage.setItem("godwayCart", JSON.stringify(cart));
-        } catch (error) {
-            console.warn("Не удалось сохранить корзину.");
-        }
-    }
+            finishOrder(
+                order,
+                true
+            );
 
-    function formatPrice(price) {
-        return Number(price).toLocaleString("ru-RU") + " ₽";
-    }
-
-    function getCartQuantity() {
-        return cart.reduce(function (total, item) {
-            return total + item.quantity;
-        }, 0);
-    }
-
-    function getCartTotal() {
-        return cart.reduce(function (total, item) {
-            return total + item.price * item.quantity;
-        }, 0);
-    }
-
-    function escapeHtml(value) {
-        return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#39;");
-    }
-
-    function updateCart() {
-        const cartCount = document.getElementById("cartCount");
-        const cartItems = document.getElementById("cartItems");
-        const cartTotal = document.getElementById("cartTotal");
-
-        if (!cartCount || !cartItems || !cartTotal) {
             return;
-        }
 
-        cartCount.textContent = getCartQuantity();
-        cartTotal.textContent = formatPrice(getCartTotal());
+        }catch(error){}
 
-        if (cart.length === 0) {
-            cartItems.innerHTML = '<div class="empty-cart">В КОРЗИНЕ ПОКА НИЧЕГО НЕТ</div>';
-            return;
-        }
-
-        cartItems.innerHTML = cart.map(function (item, index) {
-            return `
-                <div class="cart-item">
-                    <div>
-                        <div class="cart-item-name">${escapeHtml(item.name)}</div>
-                        <div class="cart-item-price">${formatPrice(item.price)} / шт.</div>
-                        <div class="cart-item-controls">
-                            <button class="quantity-button" type="button" data-cart-action="decrease" data-index="${index}">−</button>
-                            <span class="quantity">${item.quantity}</span>
-                            <button class="quantity-button" type="button" data-cart-action="increase" data-index="${index}">+</button>
-                            <button class="remove-button" type="button" data-cart-action="remove" data-index="${index}">УДАЛИТЬ</button>
-                        </div>
-                    </div>
-                    <div class="cart-item-total">${formatPrice(item.price * item.quantity)}</div>
-                </div>
-            `;
-        }).join("");
     }
 
-    // ==========================================================
-    // Оформление заказа
-    // ==========================================================
+    /* BOT CHAT FALLBACK */
 
-    function showCartStep() {
-        document.getElementById("cartItems").classList.remove("hidden-step");
-        document.getElementById("cartFooter").classList.remove("hidden-step");
-        document.getElementById("orderForm").classList.remove("active");
-        document.getElementById("orderSuccess").classList.remove("active");
-        if (tg && tg.BackButton) {
-            tg.BackButton.hide();
+    if(
+        CONFIG.BOT_USERNAME &&
+        CONFIG.BOT_USERNAME !==
+        "your_bot_username"
+    ){
+
+        const text =
+            encodeURIComponent(
+                buildOrderText(
+                    order
+                )
+            );
+
+        const link =
+            "https://t.me/" +
+            CONFIG.BOT_USERNAME +
+            "?text=" +
+            text;
+
+        if(
+            tg &&
+            tg.openTelegramLink
+        ){
+
+            tg.openTelegramLink(
+                link
+            );
+
+        }else{
+
+            window.open(
+                link,
+                "_blank"
+            );
+
         }
+
+        finishOrder(
+            order,
+            false
+        );
+
+        return;
+
     }
 
-    function showOrderFormStep() {
-        document.getElementById("cartItems").classList.add("hidden-step");
-        document.getElementById("cartFooter").classList.add("hidden-step");
-        document.getElementById("orderForm").classList.add("active");
-        document.getElementById("orderSuccess").classList.remove("active");
-        renderOrderSummary();
-        if (tg && tg.BackButton) {
+    /* ERROR */
+
+    submitButton.disabled = false;
+
+    submitButton.textContent =
+        "ПОДТВЕРДИТЬ ЗАКАЗ";
+
+    alert(
+        "Не удалось отправить заказ. Проверьте соединение и попробуйте ещё раз."
+    );
+Telegram – a new era of messaging
+Telegram – a new era of messaging
+telegram.org
+
+
+rForm"
+    ).classList.add(
+        "active"
+    );
+
+    document.getElementById(
+        "orderSuccess"
+    ).classList.remove(
+        "active"
+    );
+
+    renderOrderSummary();
+
+    if(tg && tg.BackButton){
+
+        try{
+
             tg.BackButton.show();
-            tg.BackButton.onClick(showCartStep);
-        }
+
+            tg.BackButton.onClick(
+                showCartStep
+            );
+
+        }catch(error){}
+
     }
 
-    function showSuccessStep() {
-        document.getElementById("orderForm").classList.remove("active");
-        document.getElementById("orderSuccess").classList.add("active");
-        if (tg && tg.BackButton) {
+}
+
+function showSuccessStep(){
+
+    document.getElementById(
+        "orderForm"
+    ).classList.remove(
+        "active"
+    );
+
+    document.getElementById(
+        "orderSuccess"
+    ).classList.add(
+        "active"
+    );
+
+    if(tg && tg.BackButton){
+
+        try{
+
             tg.BackButton.hide();
-        }
+
+        }catch(error){}
+
     }
 
-    function renderOrderSummary() {
-        const summary = document.getElementById("orderSummary");
-        const lines = cart.map(function (item) {
-            return `<div>${escapeHtml(item.name)} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}</div>`;
+}
+
+/* ==========================================================
+   ORDER SUMMARY
+   ========================================================== */
+
+function renderOrderSummary(){
+
+    const summary =
+        document.getElementById(
+            "orderSummary"
+        );
+
+    if(!summary){
+        return;
+    }
+
+    const lines =
+        cart.map(function(item){
+
+            return `
+
+                <div>
+                    ${escapeHtml(item.name)}
+                    × ${item.quantity}
+                    —
+                    ${formatPrice(
+                        item.price *
+                        item.quantity
+                    )}
+                </div>
+
+            `;
+
         }).join("");
 
-        summary.innerHTML = lines + `
+    summary.innerHTML =
+        lines +
+
+        `
+
             <div class="order-summary-total">
-                <span>ИТОГО</span>
-                <span>${formatPrice(getCartTotal())}</span>
+
+                <span>
+                    ИТОГО
+                </span>
+
+                <span>
+                    ${formatPrice(
+                        getCartTotal()
+                    )}
+                </span>
+
             </div>
+
         `;
-    }
 
-    function buildOrderText(order) {
-        const itemLines = order.items.map(function (item) {
-            return `• ${item.name} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}`;
-        }).join("\n");
+}
 
-        return [
-            "🛍 НОВЫЙ ЗАКАЗ GODWAY",
-            "",
-            itemLines,
-            "",
-            `ИТОГО: ${formatPrice(order.total)}`,
-            "",
-            `Имя: ${order.customer.name}`,
-            `Телефон: ${order.customer.phone}`,
-            `Адрес: ${order.customer.address}`,
-            order.customer.comment ? `Комментарий: ${order.customer.comment}` : null,
-            order.telegramUser ? `Telegram: @${order.telegramUser.username || order.telegramUser.id}` : null
-        ].filter(Boolean).join("\n");
-    }
+/* ==========================================================
+   ORDER TEXT
+   ========================================================== */
 
-    function validateOrderForm() {
-        const fields = [
-            { id: "fieldName", input: "orderName" },
-            { id: "fieldPhone", input: "orderPhone" },
-            { id: "fieldAddress", input: "orderAddress" }
-        ];
+function buildOrderText(order){
 
-        let valid = true;
+    const itemLines =
+        order.items
+        .map(function(item){
 
-        fields.forEach(function (field) {
-            const wrapper = document.getElementById(field.id);
-            const input = document.getElementById(field.input);
+            return (
+                "• " +
+                item.name +
+                " × " +
+                item.quantity +
+                " — " +
+                formatPrice(
+                    item.price *
+                    item.quantity
+                )
+            );
 
-            if (!input.value.trim()) {
-                wrapper.classList.add("invalid");
-                valid = false;
-            } else {
-                wrapper.classList.remove("invalid");
-            }
-        });
+        })
+        .join("\n");
 
-        return valid;
-    }
+    return [
 
-    async function submitOrder(event) {
-        event.preventDefault();
+        "🛍 НОВЫЙ ЗАКАЗ GODWAY",
 
-        if (!validateOrderForm()) {
-            haptic("error");
-            return;
+        "",
+
+        "Номер заказа: " +
+        order.orderId,
+
+        "",
+
+        itemLines,
+
+        "",
+
+        "ИТОГО: " +
+        formatPrice(order.total),
+
+        "",
+
+        "Имя: " +
+        order.customer.name,
+
+        "Телефон: " +
+        order.customer.phone,
+
+        "Адрес: " +
+        order.customer.address,
+
+        order.customer.comment
+            ? "Комментарий: " +
+              order.customer.comment
+            : null,
+
+        order.telegramUser
+            ? "Telegram: @" +
+              (
+                order.telegramUser.username ||
+                order.telegramUser.id
+              )
+            : null
+
+    ]
+    .filter(Boolean)
+    .join("\n");
+
+}
+
+/* ==========================================================
+   VALIDATION
+   ========================================================== */
+
+function validateOrderForm(){
+
+    const fields = [
+
+        {
+            id:"fieldName",
+            input:"orderName"
+        },
+
+        {
+            id:"fieldPhone",
+            input:"orderPhone"
+        },
+
+        {
+            id:"fieldAddress",
+            input:"orderAddress"
         }
 
-        const submitButton = document.getElementById("submitOrder");
-        submitButton.disabled = true;
-        submitButton.textContent = "ОТПРАВКА...";
+    ];
 
-        const order = {
-            orderId: "GW-" + Date.now().toString().slice(-8),
-            createdAt: new Date().toISOString(),
-            items: cart,
-            total: getCartTotal(),
-            customer: {
-                name: document.getElementById("orderName").value.trim(),
-                phone: document.getElementById("orderPhone").value.trim(),
-                address: document.getElementById("orderAddress").value.trim(),
-                comment: document.getElementById("orderComment").value.trim()
-            },
-            telegramUser: tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null,
-            initData: tg ? tg.initData : null
-        };
+    let valid = true;
 
-        let delivered = false;
+    fields.forEach(function(field){
 
-        if (CONFIG.ORDER_ENDPOINT) {
-            try {
-                const response = await fetch(CONFIG.ORDER_ENDPOINT, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(order)
-                });
+        const wrapper =
+            document.getElementById(
+                field.id
+            );
 
-                delivered = response.ok;
-            } catch (error) {
-                delivered = false;
-            }
+        const input =
+            document.getElementById(
+                field.input
+            );
+
+        if(!input.value.trim()){
+
+            wrapper.classList.add(
+                "invalid"
+            );
+
+            valid = false;
+
+        }else{
+
+            wrapper.classList.remove(
+                "invalid"
+            );
+
         }
-
-        if (delivered) {
-            finishOrder(order, true);
-            return;
-        }
-
-        // Резервный сценарий: сервер не настроен/недоступен —
-        // открываем чат с ботом с готовым текстом заказа, чтобы
-        // покупателю осталось только нажать «отправить».
-        if (tg && tg.sendData) {
-            try {
-                tg.sendData(JSON.stringify(order));
-                finishOrder(order, true);
-                return;
-            } catch (error) {
-                // sendData доступен только при запуске через кнопку
-                // клавиатуры — если не сработало, идём дальше.
-            }
-        }
-
-        const text = encodeURIComponent(buildOrderText(order));
-        const link = `https://t.me/${CONFIG.BOT_USERNAME}?text=${text}`;
-
-        if (tg && tg.openTelegramLink) {
-            tg.openTelegramLink(link);
-        } else {
-            window.open(link, "_blank");
-        }
-
-        finishOrder(order, false);
-    }
-
-    function finishOrder(order, autoDelivered) {
-        haptic("success");
-        cart = [];
-        saveCart();
-        updateCart();
-
-        const submitButton = document.getElementById("submitOrder");
-        submitButton.disabled = false;
-        submitButton.textContent = "ПОДТВЕРДИТЬ ЗАКАЗ";
-        document.getElementById("orderForm").reset();
-
-        const successText = document.querySelector(".order-success-text");
-        successText.textContent = autoDelivered
-            ? "Мы получили ваш заказ и свяжемся с вами в Telegram для подтверждения деталей и оплаты."
-            : "Осталось отправить сообщение с заказом в открывшемся чате с ботом — мы свяжемся с вами сразу после этого.";
-
-        showSuccessStep();
-    }
-
-    function addToCart(name, price) {
-        const existingItem = cart.find(function (item) {
-            return item.name === name;
-        });
-
-        if (existingItem) {
-            existingItem.quantity += 1;
-        } else {
-            cart.push({
-                name: name,
-                price: Number(price),
-                quantity: 1
-            });
-        }
-
-        saveCart();
-        updateCart();
-    }
-
-    function openCart() {
-        const overlay = document.getElementById("cartOverlay");
-        if (overlay) {
-            overlay.classList.add("active");
-        }
-    }
-
-    function closeCart() {
-        const overlay = document.getElementById("cartOverlay");
-        if (overlay) {
-            overlay.classList.remove("active");
-        }
-        window.setTimeout(showCartStep, 250);
-    }
-
-    function filterProducts(category, activeButton) {
-        const products = document.querySelectorAll(".product");
-        const categoryButtons = document.querySelectorAll(".category");
-
-        categoryButtons.forEach(function (button) {
-            button.classList.remove("active");
-        });
-
-        activeButton.classList.add("active");
-
-        products.forEach(function (product) {
-            if (category === "all" || product.dataset.category === category) {
-                product.classList.remove("hidden");
-            } else {
-                product.classList.add("hidden");
-            }
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-
-        updateCart();
-
-        document.addEventListener("click", function (event) {
-
-            const addButton = event.target.closest("[data-add-to-cart]");
-
-            if (addButton) {
-                const name = addButton.dataset.name;
-                const price = Number(addButton.dataset.price);
-
-                if (name && Number.isFinite(price)) {
-                    addToCart(name, price);
-                }
-
-                return;
-            }
-
-            const categoryButton = event.target.closest(".category");
-
-            if (categoryButton) {
-                filterProducts(categoryButton.dataset.category, categoryButton);
-                return;
-            }
-
-            const cartAction = event.target.closest("[data-cart-action]");
-
-            if (cartAction) {
-                const index = Number(cartAction.dataset.index);
-                const action = cartAction.dataset.cartAction;
-
-                if (!Number.isInteger(index) || !cart[index]) {
-                    return;
-                }
-
-                if (action === "increase") {
-                    cart[index].quantity += 1;
-                }
-
-                if (action === "decrease") {
-                    cart[index].quantity -= 1;
-
-                    if (cart[index].quantity <= 0) {
-                        cart.splice(index, 1);
-                    }
-                }
-
-                if (action === "remove") {
-                    cart.splice(index, 1);
-                }
-
-                saveCart();
-                updateCart();
-
-                return;
-            }
-
-            if (event.target.closest("#cartButton")) {
-                openCart();
-                return;
-            }
-
-            if (event.target.closest("#closeCart")) {
-                closeCart();
-                return;
-            }
-
-            if (event.target.id === "cartOverlay") {
-                closeCart();
-                return;
-            }
-
-            if (event.target.closest("#checkoutButton")) {
-                if (cart.length === 0) {
-                    haptic("error");
-                    return;
-                }
-
-                haptic("light");
-                showOrderFormStep();
-                return;
-            }
-
-            if (event.target.closest("#backToCart")) {
-                showCartStep();
-                return;
-            }
-
-            if (event.target.closest("#orderSuccessClose")) {
-                showCartStep();
-                closeCart();
-                return;
-            }
-        });
-
-        document.getElementById("orderForm").addEventListener("submit", submitOrder);
-
-        document.addEventListener("keydown", function (event) {
-            if (event.key === "Escape") {
-                closeCart();
-            }
-        });
 
     });
+
+    return valid;
+
+}
+
+/* =======================
+
+
+"invalid"
+                            );
+
+                    }
+                );
+
+            }
+
+        });
+
+    }
+);
 
 })();
 </script>
 
 </body>
-</html>
+</html> visibi
+
+
+mber.isInteger(index) ||
+                        !cart[index]
+                    ){
+
+                        return;
+
+                    }
+
+                    if(
+                        action ===
+                        "increase"
+                    ){
+
+                        cart[index].quantity += 1;
+
+                    }
+
+                    if(
+                        action ===
+                        "decrease"
+                    ){
+
+                        cart[index].quantity -= 1;
+
+                        if(
+                            cart[index].quantity <= 0
+                        ){
+
+                            cart.splice(
+                                index,
+                                1
+                            );
+
+                        }
+
+                    }
+
+                    if(
+                        action ===
+                        "remove"
+                    ){
+
+                        cart.splice(
+                            index,
+                            1
+                        );
+
+                    }
+
+                    saveCart();
+                    updateCart();
+
+                    return;
+
+                }
+
+                /* OPEN CART */
+
+                if(
+                    event.target.closest(
+                        "#cartButton"
+                    )
+                ){
+
+                    openCart();
+
+                    return;
+
+                }
+
+                /* CLOSE CART */
+
+                if(
+                    event.target.closest(
+                        "#closeCart"
+                    )
+                ){
+
+                    closeCart();
+
+                    return;
+
+                }
+
+                /* CLICK OUTSIDE */
+
+                if(
+                    event.target.id ===
+                    "cartOverlay"
+                ){
+
+                    closeCart();
+
+                    return;
+
+                }
+
+                /* CHECKOUT */
+
+                if(
+                    event.target.closest(
+                        "#checkoutButton"
+                    )
+                ){
+
+                    if(cart.length === 0){
+
+                        haptic("error");
+
+                        return;
+
+                    }
+
+                    haptic("light");
+
+                    showOrderFormStep();
+
+                    return;
+
+                }
+
+                /* BACK */
+
+                if(
+                    event.target.closest(
+                        "#backToCart"
+                    )
+                ){
+
+                    showCartStep();
+
+                    return;
+
+                }
+
+                /* SUCCESS CLOSE */
+
+                if(
+                    event.target.closest(
+                        "#orderSuccessClose"
+                    )
+                ){
+
+                    showCartStep();
+
+                    closeCart();
+
+                    return;
+
+                }
+
+            }
+        );
+
+        /* ORDER FORM */
+
+        document
+            .getElementById(
+                "orderForm"
+            )
+            .addEventListener(
+                "submit",
+                submitOrder
+            );
+
+        /* ESC */
+
+        document.addEventListener(
+            "keydown",
+            function(event){
+
+                if(
+                    event.key ===
+                    "Escape"
+                ){
+
+                    closeCart();
+
+                }
+
+            }
+        );
+
+        /* REMOVE VALIDATION ERROR WHILE TYPING */
+
+        [
+            "orderName",
+            "orderPhone",
+            "orderAddress"
+        ].forEach(function(id){
+
+            const input =
+                document.getElementById(id);
+
+            if(input){
+
+                input.addEventListener(
+                    "input",
+                    function(){
+
+                        this
+                            .closest(
+                                ".form-field"
+                            )
+                            .classList
+                            .remove(
+
+
+haptic("error");
+
+}
+
+/* ==========================================================
+   FINISH ORDER
+   ========================================================== */
+
+function finishOrder(
+    order,
+    autoDelivered
+){
+
+    haptic("success");
+
+    cart = [];
+
+    saveCart();
+    updateCart();
+
+    const submitButton =
+        document.getElementById(
+            "submitOrder"
+        );
+
+    submitButton.disabled = false;
+
+    submitButton.textContent =
+        "ПОДТВЕРДИТЬ ЗАКАЗ";
+
+    document
+        .getElementById(
+            "orderForm"
+        )
+        .reset();
+
+    const successText =
+        document.querySelector(
+            ".order-success-text"
+        );
+
+    if(autoDelivered){
+
+        successText.textContent =
+            "Мы получили ваш заказ и свяжемся с вами в Telegram для подтверждения деталей и оплаты.";
+
+    }else{
+
+        successText.textContent =
+            "Осталось отправить сообщение с заказом в открывшемся чате с ботом — мы свяжемся с вами сразу после этого.";
+
+    }
+
+    showSuccessStep();
+
+}
+
+/* ==========================================================
+   FILTER
+   ========================================================== */
+
+function filterProducts(
+    category,
+    activeButton
+){
+
+    const products =
+        document.querySelectorAll(
+            ".product"
+        );
+
+    const buttons =
+        document.querySelectorAll(
+            ".category"
+        );
+
+    buttons.forEach(
+        function(button){
+
+            button.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+    activeButton.classList.add(
+        "active"
+    );
+
+    products.forEach(
+        function(product){
+
+            if(
+                category === "all" ||
+                product.dataset.category ===
+                category
+            ){
+
+                product.classList.remove(
+                    "hidden"
+                );
+
+            }else{
+
+                product.classList.add(
+                    "hidden"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+/* ==========================================================
+   INITIALIZATION
+   ========================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        updateCart();
+
+        /* GLOBAL CLICK HANDLER */
+
+        document.addEventListener(
+            "click",
+            function(event){
+
+                /* ADD TO CART */
+
+                const addButton =
+                    event.target.closest(
+                        "[data-add-to-cart]"
+                    );
+
+                if(addButton){
+
+                    const name =
+                        addButton.dataset.name;
+
+                    const price =
+                        Number(
+                            addButton.dataset.price
+                        );
+
+                    if(
+                        name &&
+                        Number.isFinite(price)
+                    ){
+
+                        addToCart(
+                            name,
+                            price
+                        );
+
+                    }
+
+                    return;
+
+                }
+
+                /* CATEGORY */
+
+                const categoryButton =
+                    event.target.closest(
+                        ".category"
+                    );
+
+                if(categoryButton){
+
+                    filterProducts(
+                        categoryButton.dataset.category,
+                        categoryButton
+                    );
+
+                    return;
+
+                }
+
+                /* CART ACTION */
+
+                const cartAction =
+                    event.target.closest(
+                        "[data-cart-action]"
+                    );
+
+                if(cartAction){
+
+                    const index =
+                        Number(
+                            cartAction.dataset.index
+                        );
+
+                    const action =
+                        cartAction.dataset.cartAction;
+
+                    if(
+                        !Nu
