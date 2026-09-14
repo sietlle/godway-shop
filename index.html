@@ -547,6 +547,37 @@
         font-weight: 700;
     }
 
+   /* GODWAY — адаптация фотографий товаров */
+
+/* Лонгсливы */
+.product-card img[src*="longsleeve-black"],
+.product-card img[src*="longsleeve-white"] {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+/* Картхолдеры */
+.product-card img[src*="cardholder-black"],
+.product-card img[src*="cardholder-silver"] {
+    width: 65%;
+    height: 65%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    margin: auto;
+}
+
+/* Телефон */
+max-width: 768px {
+    .product-card img[src*="cardholder-black"],
+    .product-card img[src*="cardholder-silver"] {
+        width: 60%;
+        height: 60%;
+    }
+}
     /* --- Учитываем отступы Telegram (safe area / шапка клиента) --- */
     body.in-telegram header {
         padding-top: env(safe-area-inset-top, 0px);
