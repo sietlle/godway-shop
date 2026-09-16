@@ -10,8 +10,7 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-    *
-   {
+    * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
@@ -250,6 +249,84 @@
         font-size: 18px;
         font-weight: 900;
         color: #111;
+    }
+
+    /* --- Плашка согласия на использование cookie --- */
+    .cookie-consent {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding: 18px 24px;
+        padding-bottom: calc(18px + env(safe-area-inset-bottom));
+        background: #111;
+        color: #fff;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, .25);
+        transform: translateY(100%);
+        transition: transform .3s ease;
+    }
+
+    .cookie-consent.visible {
+        transform: translateY(0);
+    }
+
+    .cookie-consent-text {
+        flex: 1 1 280px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: #ddd;
+    }
+
+    .cookie-consent-text a {
+        color: #fff;
+        text-decoration: underline;
+    }
+
+    .cookie-consent-actions {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .cookie-consent-actions button {
+        border: none;
+        padding: 12px 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: .3px;
+        white-space: nowrap;
+    }
+
+    .cookie-accept {
+        background: #fff;
+        color: #111;
+    }
+
+    .cookie-decline {
+        background: transparent;
+        color: #ccc;
+        border: 1px solid #555 !important;
+    }
+
+    @media (max-width: 480px) {
+        .cookie-consent {
+            justify-content: stretch;
+            text-align: left;
+        }
+
+        .cookie-consent-actions {
+            width: 100%;
+        }
+
+        .cookie-consent-actions button {
+            flex: 1;
+        }
     }
 
     .cart-overlay {
@@ -547,37 +624,6 @@
         font-weight: 700;
     }
 
-   /* GODWAY — адаптация фотографий товаров */
-
-/* Лонгсливы */
-.product-card img[src*="longsleeve-black"],
-.product-card img[src*="longsleeve-white"] {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-}
-
-/* Картхолдеры */
-.product-card img[src*="cardholder-black"],
-.product-card img[src*="cardholder-silver"] {
-    width: 65%;
-    height: 65%;
-    object-fit: contain;
-    object-position: center;
-    display: block;
-    margin: auto;
-}
-
-/* Телефон */
-max-width: 768px {
-    .product-card img[src*="cardholder-black"],
-    .product-card img[src*="cardholder-silver"] {
-        width: 60%;
-        height: 60%;
-    }
-}
     /* --- Учитываем отступы Telegram (safe area / шапка клиента) --- */
     body.in-telegram header {
         padding-top: env(safe-area-inset-top, 0px);
@@ -796,6 +842,16 @@ max-width: 768px {
     <div class="footer-logo">GODWAY</div>
     <div>© 2026 GODWAY. ALL RIGHTS RESERVED.</div>
 </footer>
+
+<div class="cookie-consent" id="cookieConsent">
+    <div class="cookie-consent-text">
+        Мы используем файлы cookie и сохраняем данные вашего заказа (имя, телефон, адрес) для оформления и обработки покупок. Продолжая пользоваться сайтом, вы соглашаетесь с этим.
+    </div>
+    <div class="cookie-consent-actions">
+        <button type="button" class="cookie-decline" id="cookieDecline">ОТКЛОНИТЬ</button>
+        <button type="button" class="cookie-accept" id="cookieAccept">ПРИНЯТЬ</button>
+    </div>
+</div>
 
 <div class="cart-overlay" id="cartOverlay">
     <div class="cart-panel">
@@ -1240,8 +1296,57 @@ max-width: 768px {
         });
     }
 
+    const COOKIE_CONSENT_KEY = "godwayCookieConsent";
+
+    function getCookieConsent() {
+        try {
+            return localStorage.getItem(COOKIE_CONSENT_KEY);
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function setCookieConsent(value) {
+        try {
+            localStorage.setItem(COOKIE_CONSENT_KEY, value);
+        } catch (error) {
+            // localStorage недоступен — плашка будет появляться заново, это некритично
+        }
+    }
+
+    function initCookieConsent() {
+        const banner = document.getElementById("cookieConsent");
+        if (!banner) {
+            return;
+        }
+
+        if (!getCookieConsent()) {
+            window.setTimeout(function () {
+                banner.classList.add("visible");
+            }, 400);
+        }
+
+        const acceptButton = document.getElementById("cookieAccept");
+        const declineButton = document.getElementById("cookieDecline");
+
+        if (acceptButton) {
+            acceptButton.addEventListener("click", function () {
+                setCookieConsent("accepted");
+                banner.classList.remove("visible");
+            });
+        }
+
+        if (declineButton) {
+            declineButton.addEventListener("click", function () {
+                setCookieConsent("declined");
+                banner.classList.remove("visible");
+            });
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
 
+        initCookieConsent();
         updateCart();
 
         document.addEventListener("click", function (event) {
