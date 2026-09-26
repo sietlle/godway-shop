@@ -215,6 +215,46 @@
         color: #fff;
     }
 
+    /* --- Товар закончился (data-stock="0") --- */
+    .product.out-of-stock .product-image {
+        opacity: .45;
+        cursor: default;
+    }
+
+    .product.out-of-stock .sold {
+        background: #c00;
+    }
+
+    .sold-badge {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        z-index: 2;
+        padding: 7px 10px;
+        background: #c00;
+        color: #fff;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: .5px;
+        display: none;
+    }
+
+    .product.out-of-stock .sold-badge {
+        display: block;
+    }
+
+    .product-button:disabled {
+        border-color: #ccc;
+        color: #aaa;
+        background: #f5f5f5;
+        cursor: not-allowed;
+    }
+
+    .product-button:disabled:hover {
+        background: #f5f5f5;
+        color: #aaa;
+    }
+
     .banner {
         margin: 0 24px 100px;
         min-height: 330px;
@@ -747,8 +787,8 @@
 
     <div class="products" id="products">
 
-        <article class="product" data-category="clothing">
-            <div class="product-image" data-add-to-cart data-name="LONGSLEEVE / BLACK" data-price="2000"><img src="longsleeve-black.jpg" alt="LONGSLEEVE / BLACK" loading="lazy" onerror="this.parentElement.classList.add('img-missing')">
+        <article class="product" data-category="clothing" data-stock="5" data-id="longsleeve-black">
+            <div class="product-image" data-add-to-cart data-name="LONGSLEEVE / BLACK" data-price="2000" data-id="longsleeve-black"><div class="sold-badge">SOLD OUT</div><img src="longsleeve-black.jpg" alt="LONGSLEEVE / BLACK" loading="lazy" onerror="this.parentElement.classList.add('img-missing')">
                 <div class="sold">NEW</div>
             </div>
             <div class="product-name">LONGSLEEVE / BLACK</div>
@@ -756,11 +796,11 @@
                 <span>M / L</span>
                 <span>2 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="LONGSLEEVE / BLACK" data-price="2000">В КОРЗИНУ</button>
+            <button class="product-button" type="button" data-add-to-cart data-name="LONGSLEEVE / BLACK" data-price="2000" data-id="longsleeve-black">В КОРЗИНУ</button>
         </article>
 
-        <article class="product" data-category="clothing">
-            <div class="product-image" data-add-to-cart data-name="LONGSLEEVE / WHITE" data-price="2000"><img src="longsleeve-white.jpg" alt="LONGSLEEVE / WHITE" loading="lazy" onerror="this.parentElement.classList.add('img-missing')">
+        <article class="product" data-category="clothing" data-stock="5" data-id="longsleeve-white">
+            <div class="product-image" data-add-to-cart data-name="LONGSLEEVE / WHITE" data-price="2000" data-id="longsleeve-white"><div class="sold-badge">SOLD OUT</div><img src="longsleeve-white.jpg" alt="LONGSLEEVE / WHITE" loading="lazy" onerror="this.parentElement.classList.add('img-missing')">
                 <div class="sold">NEW</div>
             </div>
             <div class="product-name">LONGSLEEVE / WHITE</div>
@@ -768,67 +808,67 @@
                 <span>M / L</span>
                 <span>2 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="LONGSLEEVE / WHITE" data-price="2000">В КОРЗИНУ</button>
+            <button class="product-button" type="button" data-add-to-cart data-name="LONGSLEEVE / WHITE" data-price="2000" data-id="longsleeve-white">В КОРЗИНУ</button>
         </article>
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 01" data-price="1000"><img src="cardholder-black-01.jpg" alt="CARDHOLDER / BLACK 01" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
+        <article class="product" data-category="accessories" data-stock="5" data-id="cardholder-black-01">
+            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 01" data-price="1000" data-id="cardholder-black-01"><div class="sold-badge">SOLD OUT</div><img src="cardholder-black-01.jpg" alt="CARDHOLDER / BLACK 01" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
             <div class="product-name">CARDHOLDER / BLACK 01</div>
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 01" data-price="1000">В КОРЗИНУ</button>
+            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 01" data-price="1000" data-id="cardholder-black-01">В КОРЗИНУ</button>
         </article>
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 02" data-price="1000"><img src="cardholder-black-02.jpg" alt="CARDHOLDER / BLACK 02" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
+        <article class="product" data-category="accessories" data-stock="5" data-id="cardholder-black-02">
+            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 02" data-price="1000" data-id="cardholder-black-02"><div class="sold-badge">SOLD OUT</div><img src="cardholder-black-02.jpg" alt="CARDHOLDER / BLACK 02" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
             <div class="product-name">CARDHOLDER / BLACK 02</div>
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 02" data-price="1000">В КОРЗИНУ</button>
+            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 02" data-price="1000" data-id="cardholder-black-02">В КОРЗИНУ</button>
         </article>
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 03" data-price="1000"><img src="cardholder-black-03.jpg" alt="CARDHOLDER / BLACK 03" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
+        <article class="product" data-category="accessories" data-stock="5" data-id="cardholder-black-03">
+            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / BLACK 03" data-price="1000" data-id="cardholder-black-03"><div class="sold-badge">SOLD OUT</div><img src="cardholder-black-03.jpg" alt="CARDHOLDER / BLACK 03" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
             <div class="product-name">CARDHOLDER / BLACK 03</div>
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 03" data-price="1000">В КОРЗИНУ</button>
+            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / BLACK 03" data-price="1000" data-id="cardholder-black-03">В КОРЗИНУ</button>
         </article>
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 01" data-price="1000"><img src="cardholder-silver-01.jpg" alt="CARDHOLDER / SILVER 01" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
+        <article class="product" data-category="accessories" data-stock="5" data-id="cardholder-silver-01">
+            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 01" data-price="1000" data-id="cardholder-silver-01"><div class="sold-badge">SOLD OUT</div><img src="cardholder-silver-01.jpg" alt="CARDHOLDER / SILVER 01" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
             <div class="product-name">CARDHOLDER / SILVER 01</div>
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 01" data-price="1000">В КОРЗИНУ</button>
+            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 01" data-price="1000" data-id="cardholder-silver-01">В КОРЗИНУ</button>
         </article>
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 02" data-price="1000"><img src="cardholder-silver-02.jpg" alt="CARDHOLDER / SILVER 02" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
+        <article class="product" data-category="accessories" data-stock="5" data-id="cardholder-silver-02">
+            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 02" data-price="1000" data-id="cardholder-silver-02"><div class="sold-badge">SOLD OUT</div><img src="cardholder-silver-02.jpg" alt="CARDHOLDER / SILVER 02" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
             <div class="product-name">CARDHOLDER / SILVER 02</div>
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 02" data-price="1000">В КОРЗИНУ</button>
+            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 02" data-price="1000" data-id="cardholder-silver-02">В КОРЗИНУ</button>
         </article>
 
-        <article class="product" data-category="accessories">
-            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 03" data-price="1000"><img src="cardholder-silver-03.jpg" alt="CARDHOLDER / SILVER 03" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
+        <article class="product" data-category="accessories" data-stock="5" data-id="cardholder-silver-03">
+            <div class="product-image" data-add-to-cart data-name="CARDHOLDER / SILVER 03" data-price="1000" data-id="cardholder-silver-03"><div class="sold-badge">SOLD OUT</div><img src="cardholder-silver-03.jpg" alt="CARDHOLDER / SILVER 03" loading="lazy" onerror="this.parentElement.classList.add('img-missing')"></div>
             <div class="product-name">CARDHOLDER / SILVER 03</div>
             <div class="product-info">
                 <span>ONE SIZE</span>
                 <span>1 000 ₽</span>
             </div>
-            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 03" data-price="1000">В КОРЗИНУ</button>
+            <button class="product-button" type="button" data-add-to-cart data-name="CARDHOLDER / SILVER 03" data-price="1000" data-id="cardholder-silver-03">В КОРЗИНУ</button>
         </article>
 
     </div>
@@ -926,6 +966,12 @@
         BOT_USERNAME: "your_bot_username"
     };
 
+    // Эндпоинт остатков вычисляется из ORDER_ENDPOINT автоматически
+    // (тот же воркер, путь /stock вместо /order).
+    const STOCK_ENDPOINT = CONFIG.ORDER_ENDPOINT
+        ? CONFIG.ORDER_ENDPOINT.replace(/\/order\/?$/, "/stock")
+        : null;
+
     // ==========================================================
     // Telegram WebApp
     // ==========================================================
@@ -978,6 +1024,7 @@
                     );
                 }).map(function (item) {
                     return {
+                        id: typeof item.id === "string" ? item.id : "",
                         name: item.name,
                         price: Number(item.price),
                         quantity: Number(item.quantity)
@@ -1178,6 +1225,7 @@
         };
 
         let delivered = false;
+        let outOfStock = false;
 
         if (CONFIG.ORDER_ENDPOINT) {
             try {
@@ -1187,10 +1235,27 @@
                     body: JSON.stringify(order)
                 });
 
-                delivered = response.ok;
+                if (response.status === 409) {
+                    outOfStock = true;
+                } else {
+                    delivered = response.ok;
+                }
             } catch (error) {
                 delivered = false;
             }
+        }
+
+        if (outOfStock) {
+            // Сервер отказал: часть товаров из корзины уже раскупили,
+            // пока покупатель оформлял заказ. Не даём заказу пройти
+            // в обход проверки — сообщаем и обновляем остатки на странице.
+            haptic("error");
+            window.alert("К сожалению, часть товаров из корзины закончилась. Обновите корзину и попробуйте ещё раз.");
+            fetchStock();
+
+            submitButton.disabled = false;
+            submitButton.textContent = "ПОДТВЕРДИТЬ ЗАКАЗ";
+            return;
         }
 
         if (delivered) {
@@ -1243,7 +1308,7 @@
         showSuccessStep();
     }
 
-    function addToCart(name, price) {
+    function addToCart(id, name, price) {
         const existingItem = cart.find(function (item) {
             return item.name === name;
         });
@@ -1252,6 +1317,7 @@
             existingItem.quantity += 1;
         } else {
             cart.push({
+                id: id,
                 name: name,
                 price: Number(price),
                 quantity: 1
@@ -1275,6 +1341,54 @@
             overlay.classList.remove("active");
         }
         window.setTimeout(showCartStep, 250);
+    }
+
+    // ==========================================================
+    // Наличие товара
+    // data-stock на <article class="product"> — запасное значение,
+    // которое видно, пока не загрузились реальные остатки с сервера
+    // (или если сервер недоступен). Реальные цифры хранятся в
+    // Cloudflare KV и подтягиваются через fetchStock() ниже.
+    // ==========================================================
+    function applyStockStatus() {
+        document.querySelectorAll(".product").forEach(function (product) {
+            const stock = Number(product.dataset.stock);
+            const outOfStock = Number.isFinite(stock) && stock <= 0;
+
+            product.classList.toggle("out-of-stock", outOfStock);
+
+            const button = product.querySelector(".product-button");
+            if (button) {
+                button.disabled = outOfStock;
+                button.textContent = outOfStock ? "НЕТ В НАЛИЧИИ" : "В КОРЗИНУ";
+            }
+        });
+    }
+
+    async function fetchStock() {
+        if (!STOCK_ENDPOINT) {
+            return;
+        }
+
+        try {
+            const response = await fetch(STOCK_ENDPOINT);
+            const data = await response.json();
+
+            if (!response.ok || !data.ok || !data.stock) {
+                return;
+            }
+
+            document.querySelectorAll(".product[data-id]").forEach(function (product) {
+                const id = product.dataset.id;
+                if (Object.prototype.hasOwnProperty.call(data.stock, id)) {
+                    product.dataset.stock = String(data.stock[id]);
+                }
+            });
+
+            applyStockStatus();
+        } catch (error) {
+            // Сервер недоступен — остаются запасные значения data-stock из HTML.
+        }
     }
 
     function filterProducts(category, activeButton) {
@@ -1348,17 +1462,27 @@
 
         initCookieConsent();
         updateCart();
+        applyStockStatus();
+        fetchStock();
 
         document.addEventListener("click", function (event) {
 
             const addButton = event.target.closest("[data-add-to-cart]");
 
             if (addButton) {
+                const productCard = addButton.closest(".product");
+
+                if (productCard && productCard.classList.contains("out-of-stock")) {
+                    haptic("error");
+                    return;
+                }
+
+                const id = addButton.dataset.id || "";
                 const name = addButton.dataset.name;
                 const price = Number(addButton.dataset.price);
 
                 if (name && Number.isFinite(price)) {
-                    addToCart(name, price);
+                    addToCart(id, name, price);
                 }
 
                 return;
