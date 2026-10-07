@@ -516,11 +516,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     { id: "cardholder-silver-01", name: "CARDHOLDER / SILVER 01", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
     { id: "cardholder-silver-02", name: "CARDHOLDER / SILVER 02", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
     { id: "cardholder-silver-03", name: "CARDHOLDER / SILVER 03", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
-    { id: "cardholder-black-04",  name: "CARDHOLDER / BLACK 04",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
-    { id: "cardholder-black-05",  name: "CARDHOLDER / BLACK 05",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
-    { id: "cardholder-silver-04", name: "CARDHOLDER / SILVER 04", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
-    { id: "cardholder-silver-05", name: "CARDHOLDER / SILVER 05", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true }
-  ];
+  { id: "cardholder-black-04",  name: "CARDHOLDER / BLACK 04",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+{ id: "cardholder-black-05",  name: "CARDHOLDER / BLACK 05",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+{ id: "cardholder-silver-04", name: "CARDHOLDER / SILVER 04", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+{ id: "cardholder-silver-05", name: "CARDHOLDER / SILVER 05", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
 
   const LABEL_ADD = "В корзину";
   const LABEL_SOLD = "Нет в наличии";
@@ -822,7 +821,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     const root = document.getElementById("products");
     root.innerHTML = PRODUCTS.map(function (p) {
       const name = escapeHtml(p.name);
-      const attrs = `data-add-to-cart data-id="${p.id}" data-name="${name}" data-price="${p.price}"`;
+      const attrs = `data-add-to-cart data-id="${p.id}" data-name="${name}" data-price="${p.price}" data-preorder="${p.preorder ? "true" : "false"}"`;
       return `
         <article class="product" data-category="${p.category}" data-stock="${p.stock}" data-id="${p.id}">
           <div class="product-image" ${attrs}>
