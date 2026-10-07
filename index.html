@@ -515,7 +515,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     { id: "cardholder-black-03",  name: "CARDHOLDER / BLACK 03",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
     { id: "cardholder-silver-01", name: "CARDHOLDER / SILVER 01", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
     { id: "cardholder-silver-02", name: "CARDHOLDER / SILVER 02", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
-    { id: "cardholder-silver-03", name: "CARDHOLDER / SILVER 03", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 }
+    { id: "cardholder-silver-03", name: "CARDHOLDER / SILVER 03", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
+    { id: "cardholder-black-04",  name: "CARDHOLDER / BLACK 04",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+    { id: "cardholder-black-05",  name: "CARDHOLDER / BLACK 05",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+    { id: "cardholder-silver-04", name: "CARDHOLDER / SILVER 04", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+    { id: "cardholder-silver-05", name: "CARDHOLDER / SILVER 05", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true }
   ];
 
   const LABEL_ADD = "В корзину";
@@ -828,7 +832,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           </div>
           <div class="product-name">${name}</div>
           <div class="product-info"><span>${escapeHtml(p.size)}</span><span>${formatPrice(p.price)}</span></div>
-          <button class="pill pill--sm product-button" type="button" ${attrs}>${LABEL_ADD}</button>
+          <button class="pill pill--sm product-button" type="button" ${attrs}>${p.preorder ? 'Предзаказ' : LABEL_ADD}</button>
         </article>
       `;
     }).join("");
@@ -879,11 +883,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   function flashAdded(card) {
     const button = card && card.querySelector(".product-button");
     if (!button || button.disabled) { return; }
-    button.textContent = "Добавлено ✓";
+    
+    // Проверяем, является ли товар предзаказом
+    const isPreorder = button.getAttribute('data-preorder') === 'true';
+    const originalText = isPreorder ? 'Предзаказ' : LABEL_ADD;
+    
+    button.textContent = isPreorder ? "Оформлено ✓" : "Добавлено ✓";
+    
     window.setTimeout(function () {
-      if (!button.disabled) { button.textContent = LABEL_ADD; }
+      if (!button.disabled) { 
+        button.textContent = originalText; 
+      }
     }, 1000);
-  }
+}
 
   // ==========================================================
   // Cookie
