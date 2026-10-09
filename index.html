@@ -489,7 +489,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   "use strict";
 
   // ==========================================================
-  // НАСТРОЙКИ (перенесены из старого сайта без изменений)
+  // НАСТРОЙКИ
   // ==========================================================
   const CONFIG = {
     // Воркер, который принимает заказ и пересылает его в Telegram-бот.
@@ -506,6 +506,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   // ==========================================================
   // Товары. Фото лежат рядом с index.html и называются по id: <id>.jpg
   // stock — запасное значение, пока не пришли реальные остатки с сервера.
+  // preorder: true — товар продаётся по предзаказу (остатки не ограничивают).
   // ==========================================================
   const PRODUCTS = [
     { id: "longsleeve-black",     name: "LONGSLEEVE / BORDO",     category: "clothing",    price: 2000, size: "M / L",    stock: 5, isNew: true },
@@ -516,12 +517,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     { id: "cardholder-silver-01", name: "CARDHOLDER / SILVER 01", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
     { id: "cardholder-silver-02", name: "CARDHOLDER / SILVER 02", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
     { id: "cardholder-silver-03", name: "CARDHOLDER / SILVER 03", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5 },
-  { id: "cardholder-black-04",  name: "CARDHOLDER / BLACK 04",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
-{ id: "cardholder-black-05",  name: "CARDHOLDER / BLACK 05",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
-{ id: "cardholder-silver-04", name: "CARDHOLDER / SILVER 04", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
-{ id: "cardholder-silver-05", name: "CARDHOLDER / SILVER 05", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true }
-]
+    { id: "cardholder-black-04",  name: "CARDHOLDER / BLACK 04",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+    { id: "cardholder-black-05",  name: "CARDHOLDER / BLACK 05",  category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+    { id: "cardholder-silver-04", name: "CARDHOLDER / SILVER 04", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true },
+    { id: "cardholder-silver-05", name: "CARDHOLDER / SILVER 05", category: "accessories", price: 1000, size: "ONE SIZE", stock: 5, isNew: true, preorder: true }
+  ];
+
   const LABEL_ADD = "В корзину";
+  const LABEL_PREORDER = "Предзаказ";
   const LABEL_SOLD = "Нет в наличии";
   const LABEL_SUBMIT = "Подтвердить заказ";
 
@@ -566,7 +569,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             id: typeof item.id === "string" ? item.id : "",
             name: item.name,
             price: Number(item.price),
-            quantity: Number(item.quantity)
+            quantity: Number(item.quantity),
+            preorder: !!item.preorder
           };
         });
       }
@@ -608,7 +612,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       return `
         <div class="cart-item">
           <div>
-            <div class="cart-item-name">${escapeHtml(item.name)}</div>
+            <div class="cart-item-name">${escapeHtml(item.name)}${item.preorder ? " (предзаказ)" : ""}</div>
             <div class="cart-item-price">${formatPrice(item.price)} / шт.</div>
             <div class="cart-item-controls">
               <button class="quantity-button" type="button" data-cart-action="decrease" data-index="${index}" aria-label="Меньше">−</button>
@@ -655,7 +659,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   function renderOrderSummary() {
     const summary = document.getElementById("orderSummary");
     const lines = cart.map(function (item) {
-      return `<div>${escapeHtml(item.name)} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}</div>`;
+      return `<div>${escapeHtml(item.name)}${item.preorder ? " (предзаказ)" : ""} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}</div>`;
     }).join("");
     summary.innerHTML = lines + `
       <div class="order-summary-total">
@@ -667,7 +671,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   function buildOrderText(order) {
     const itemLines = order.items.map(function (item) {
-      return `• ${item.name} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}`;
+      return `• ${item.name}${item.preorder ? " (ПРЕДЗАКАЗ)" : ""} × ${item.quantity} — ${formatPrice(item.price * item.quantity)}`;
     }).join("\n");
 
     return [
@@ -715,6 +719,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       createdAt: new Date().toISOString(),
       items: cart,
       total: getCartTotal(),
+      hasPreorder: cart.some(function (item) { return item.preorder; }),
       customer: {
         name: document.getElementById("orderName").value.trim(),
         phone: document.getElementById("orderPhone").value.trim(),
@@ -791,10 +796,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     showSuccessStep();
   }
 
-  function addToCart(id, name, price) {
+  function addToCart(id, name, price, preorder) {
     const existingItem = cart.find(function (item) { return item.name === name; });
     if (existingItem) { existingItem.quantity += 1; }
-    else { cart.push({ id: id, name: name, price: Number(price), quantity: 1 }); }
+    else { cart.push({ id: id, name: name, price: Number(price), quantity: 1, preorder: !!preorder }); }
     saveCart();
     updateCart();
   }
@@ -823,7 +828,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       const name = escapeHtml(p.name);
       const attrs = `data-add-to-cart data-id="${p.id}" data-name="${name}" data-price="${p.price}" data-preorder="${p.preorder ? "true" : "false"}"`;
       return `
-        <article class="product" data-category="${p.category}" data-stock="${p.stock}" data-id="${p.id}">
+        <article class="product" data-category="${p.category}" data-stock="${p.stock}" data-id="${p.id}" data-preorder="${p.preorder ? "true" : "false"}">
           <div class="product-image" ${attrs}>
             <img src="${p.id}.jpg" alt="${name}" loading="lazy" onerror="this.parentElement.classList.add('img-missing')">
             ${p.isNew ? '<span class="tag tag--new">NEW</span>' : ''}
@@ -831,7 +836,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           </div>
           <div class="product-name">${name}</div>
           <div class="product-info"><span>${escapeHtml(p.size)}</span><span>${formatPrice(p.price)}</span></div>
-          <button class="pill pill--sm product-button" type="button" ${attrs}>${p.preorder ? 'Предзаказ' : LABEL_ADD}</button>
+          <button class="pill pill--sm product-button" type="button" ${attrs}>${p.preorder ? LABEL_PREORDER : LABEL_ADD}</button>
         </article>
       `;
     }).join("");
@@ -840,14 +845,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   function applyStockStatus() {
     document.querySelectorAll(".product").forEach(function (product) {
       const stock = Number(product.dataset.stock);
-      const outOfStock = Number.isFinite(stock) && stock <= 0;
+      const isPreorder = product.dataset.preorder === "true";
+      // Предзаказные товары никогда не считаются «закончившимися».
+      const outOfStock = !isPreorder && Number.isFinite(stock) && stock <= 0;
 
       product.classList.toggle("out-of-stock", outOfStock);
 
       const button = product.querySelector(".product-button");
       if (button) {
         button.disabled = outOfStock;
-        button.textContent = outOfStock ? LABEL_SOLD : LABEL_ADD;
+        button.textContent = outOfStock ? LABEL_SOLD : (isPreorder ? LABEL_PREORDER : LABEL_ADD);
       }
     });
   }
@@ -882,19 +889,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   function flashAdded(card) {
     const button = card && card.querySelector(".product-button");
     if (!button || button.disabled) { return; }
-    
-    // Проверяем, является ли товар предзаказом
-    const isPreorder = button.getAttribute('data-preorder') === 'true';
-    const originalText = isPreorder ? 'Предзаказ' : LABEL_ADD;
-    
-    button.textContent = isPreorder ? "Оформлено ✓" : "Добавлено ✓";
-    
+
+    const isPreorder = card.dataset.preorder === "true";
+    const originalText = isPreorder ? LABEL_PREORDER : LABEL_ADD;
+
+    button.textContent = "Добавлено ✓";
+
     window.setTimeout(function () {
-      if (!button.disabled) { 
-        button.textContent = originalText; 
-      }
+      if (!button.disabled) { button.textContent = originalText; }
     }, 1000);
-}
+  }
 
   // ==========================================================
   // Cookie
@@ -966,9 +970,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         const id = addButton.dataset.id || "";
         const name = addButton.dataset.name;
         const price = Number(addButton.dataset.price);
+        const preorder = addButton.dataset.preorder === "true";
 
         if (name && Number.isFinite(price)) {
-          addToCart(id, name, price);
+          addToCart(id, name, price, preorder);
           haptic("light");
           flashAdded(productCard);
         }
