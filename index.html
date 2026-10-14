@@ -587,8 +587,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   const PRODUCTS = [
     { id: "longsleeve-black", name: "LONGSLEEVE / BORDO", category: "clothing", price: 2000, size: "M / L", sizes: ["M", "L"], description: DESC_LONGSLEEVE, stock: 5, isNew: true },
     { id: "longsleeve-white", name: "LONGSLEEVE / WHITE", category: "clothing", price: 2000, size: "M / L", sizes: ["M", "L"], description: DESC_LONGSLEEVE, stock: 5, isNew: true },
-    cardholder("04", "cardholder-black-04", "cardholder-silver-04", { isNew: true, preorder: true }),
-    cardholder("05", "cardholder-black-05", "cardholder-silver-05", { isNew: true, preorder: true }),
+    cardholder("04", "cardholder-black-04", "cardholder-silver-04"),
+    cardholder("05", "cardholder-black-05", "cardholder-silver-05"), 
     cardholder("01", "cardholder-black-01", "cardholder-silver-02"),
     cardholder("02", "cardholder-black-02", "cardholder-silver-03"),
     cardholder("03", "cardholder-black-03", "cardholder-silver-01")
@@ -598,7 +598,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   PRODUCTS.forEach(function (p) { PRODUCT_BY_ID[p.id] = p; });
 
   const LABEL_ADD = "В корзину";
-  const LABEL_PREORDER = "Предзаказ";
+  const LABEL_PREORDER = "Заказ";
   const LABEL_SOLD = "Нет в наличии";
   const LABEL_SUBMIT = "Подтвердить заказ";
   const LABEL_CHOOSE = "Выбрать цвет";
